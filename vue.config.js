@@ -2,7 +2,7 @@ const path = require('path')
 
 module.exports = {
     parallel: false,
-    publicPath: process.env.NODE_ENV === "production" ? "/index" : "/",
+    publicPath: process.env.NODE_ENV === "production" ? "/zhangmingemma.github.io" : "/",
     chainWebpack: config => {
         config.module.rule('md')
             .test(/\.md/)
