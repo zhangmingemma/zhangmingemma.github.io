@@ -1,0 +1,108 @@
+body, html {
+    font: 400 1rem/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+    color: $font-dark-grey;
+    background: $bg-white;
+    padding: 0;
+    margin: 0;
+    height: 100%;
+}
+
+// 标签
+.blog-tag {
+    display: inline-block;
+    background: $bg-grey;
+    font-size: $font-size-h5-excerpt;
+    color: $font-dark-grey;
+    text-decoration: none;
+    padding: .4rem .6rem;
+    border-radius: .4rem;
+    margin-right: .6rem;
+    line-height: 1;
+    cursor: pointer;
+
+    &:hover, &:focus, &:active {
+        color: $link-red;
+    }
+}
+
+// 内嵌的html必须要全局样式
+// 目录样式
+.catalog-list {
+    position: relative;
+    padding: 0;
+    margin: 0;
+    @include before-line();
+    .item {
+        margin: 0;
+        padding: 0;
+        font-size: $font-size-h1-excerpt;
+        line-height: $line-height;
+        list-style: none;
+        a {
+            text-decoration: none;
+            color: $font-dark-grey;
+            font-weight: $font-weight-bold;
+            margin: .4rem 0;
+            padding: .2rem 0 .2rem 1.3rem;
+            display: block;
+            position: relative;
+            @include singleLine;
+            @include item-dot(6px, 50%);
+            &:hover {
+                background: $line-catalog-grey;
+                border-radius: 3px;
+            }
+            &:active, &:focus {
+                color: $link-red;
+                background: $line-catalog-grey;
+                border-radius: 3px;
+            }
+        }
+    }
+
+    .catalog-list {
+        margin-left: 2rem;
+        a {
+            @include item-dot(5px, 0);
+            font-weight: $font-weight;
+            font-size: $font-size-h3-excerpt;
+            margin: .1rem 0;
+            padding: .1rem 0 .1rem 1.3rem;
+        }
+    }
+
+    .catalog-list .catalog-list {
+        a {
+            @include item-dot(5px, 50%);
+            font-size: $font-size-h5-excerpt;
+        }
+    }
+}
+
+// 文章样式
+.markdown-body {
+    line-height: $line-height !important;
+    h1, h2, h3, h4, h5, h6 {
+        margin-top: 0 !important;
+        padding-top: 1.5rem !important;
+    }
+    p code {
+        color: $link-red;
+    }
+    li>p {
+        margin-bottom: 0 !important;
+        margin-top: 0 !important;
+    }
+    pre {
+        margin-top: .5rem !important;
+    }
+    img {
+        display: inline-block;
+        margin-top: .5rem;
+    }
+    .center {
+        margin-left: 50%;
+        transform: translateX(-50%);
+    }
+}
+

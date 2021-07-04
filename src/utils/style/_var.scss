@@ -1,0 +1,65 @@
+
+// base
+$font-size: 1rem;
+
+$font-size-h1: 2.3rem;
+$font-size-h2: 1.8rem;
+$font-size-h3: 1.5rem;
+$font-size-h4: 1.2rem;
+$font-size-h5: 1rem;
+$font-size-h6: 1rem;
+$font-size-sub: .9rem;
+$font-size-tiny: .8rem;
+
+$font-size-h1-small:     2rem;
+$font-size-h2-small:     1.5rem;
+$font-size-h3-small:     1.35rem;
+$font-size-h4-small:     1.15rem;
+
+$font-size-header-list:  1.4rem;
+$font-size-h1-excerpt:   1rem;
+$font-size-h2-excerpt:   .975rem;
+$font-size-h3-excerpt:   .95rem;
+$font-size-h4-excerpt:   .925rem;
+$font-size-h5-excerpt:   .9rem;
+$font-size-h6-excerpt:   .9rem;
+
+$font-weight-light: 300;
+$font-weight: 400;
+$font-weight-bold: 600;
+
+$line-height: 1.6;
+$line-height-large: 1.8;
+
+
+// layout
+$header-height:          5rem;
+$header-height-small:    3rem;
+$header-height-large:    9rem;
+$content-min-width:      500px;
+$content-width:          900px;
+$content-max-width:      850px;
+$aside-width:            220px;
+$footer-height:          12rem;
+
+
+//color
+$bg-white: #fff;
+$bg-grey: #f2f2f2;
+$bg-light-grey: #f8f9fa;
+$font-black: #000;
+$font-white: #fff;
+$font-dark-grey: #333;
+$font-mid-grey: #9c9c9c;
+$font-opacity-grey: rgba(51,51,51,0.2);
+$line-grey: #ebedef;
+$line-dark-grey: #333;
+$line-catalog-grey: #f2f3f4;
+$link-red: #fc4d50;
+
+
+
+$direction: (
+    horz: 'horz',
+    vert: 'vert'
+);

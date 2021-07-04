@@ -1,0 +1,87 @@
+// 屏幕适配
+@mixin media-breakpoint-down($max-width) {
+    @media screen and (max-width: $max-width) {
+        @content;
+    }
+}
+
+// flex居中
+@mixin flex-center($value: default) {
+    display: flex;
+
+    @if $value == default {
+        justify-content: center;
+        align-items: center;
+    } @else if $value == map-get($direction, horz) {
+        justify-content: center;
+    } @else if $value == map-get($direction, vert) {
+        align-items: center;
+    }
+}
+
+// 单行
+@mixin singleLine() {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+// 多行省略
+@mixin ellipsis($line) {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: $line;
+}  
+
+// 路由标题
+@mixin nav-link($color:$font-dark-grey, $activeColor:$link-red, $forbidFocus:false) {
+    text-decoration: none;
+    color: $color;
+    transition: all .6s ease;
+
+    &:hover, &:focus, &:active {
+        color: $activeColor;
+    }
+}
+
+// 页面容器
+@mixin outer-container($max-width:$content-max-width) {
+    margin: 0 auto;
+    padding: 0 2rem;  
+    max-width: $max-width;
+    box-sizing: border-box;
+    @include media-breakpoint-down(s) {
+        padding: 0 1rem;
+    }
+}
+
+// item前加点
+@mixin item-dot($size, $border-radius:0, $left: 5px, $top:50%) {
+    &::before {
+        content: '';
+        position: absolute;
+        top: $top;
+        left: $left;
+        margin-top: -#{$size}/2;
+        width: $size;
+        height: $size;
+        background: currentColor;
+        border-radius: $border-radius;
+    }
+}
+
+// 左加线
+@mixin before-line($color:$line-catalog-grey) {
+    &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 7px;
+        bottom: 0;
+        width: 2px;
+        background: $color;
+        opacity: .5;
+    } 
+}
