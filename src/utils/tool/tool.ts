@@ -1,8 +1,8 @@
 import { ref, Ref } from "@vue/reactivity"
 
 export const GitHubOAuth = {
-    ClientID: 'f58ae97977cacfb0fd1a',
-    ClientSecret: '30e8b9f65e708c38db48206cbbea8d80a5a2e128',
+    ClientID: 'f2fc4c018508a76889b4',
+    ClientSecret: 'c61f4feab775f95de8af0e4e215e1a5b2b54707c',
     Repo: 'zhangmingemma.github.io',
     Owner: 'zhangmingemma',
 }
