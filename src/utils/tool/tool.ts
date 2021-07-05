@@ -32,5 +32,5 @@ export const intersect = (listA:(string|number)[], listB:(string|number)[]) => {
 }
 
 export const getPostPath = () => {
-    return process.env.NODE_ENV === "production" ? "./posts" : "./posts"
+    return process.env.NODE_ENV === "production" ? "./dist/posts" : "./posts"
 }
