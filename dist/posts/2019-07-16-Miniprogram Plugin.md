@@ -16,7 +16,7 @@ tags: 微信小程序
 
 开发者开发插件前需要在已经注册号的小程序管理后台开通插件功能，填写插件基本信息、插件开发信息后，在开发者工具“开发类型”中选择“插件”即可创建插件项目[[插件开通及创建项目指引]]([https://developers.weixin.qq.com/miniprogram/introduction/plugin.html#%E5%BC%80%E5%8F%91%E6%8F%92%E4%BB%B6](https://developers.weixin.qq.com/miniprogram/introduction/plugin.html#开发插件))，新建后的插件项目将包含三个目录，以好物圈提供的“好物推荐”插件为例，创建的插件项目包含的目录及主要内容如下图所示：
 
-![好物推荐插件 (2)](../images/2019-07-16/20190716image1.png)
+![好物推荐插件 (2)](https://zhangmingemma.github.io/dist/images/2019-07-16/20190716image1.png)
 
 可以看到插件项目包含``doc``、``miniProgram``、``plugin``三个目录：
 
@@ -47,7 +47,7 @@ tags: 微信小程序
 
 **2）页面跳转**
 
-<img src="../images/2019-07-16/20190716image2.png" style="height:450px;text-align:center;"/>
+<img src="https://zhangmingemma.github.io/dist/images/2019-07-16/20190716image2.png" style="height:450px;text-align:center;"/>
 
 在插件的开发中常常会涉及到三种情况下的跳转，插件内跳转、插件间跳转和插件与小程序间跳转，都可以使用[``navigator``](https://developers.weixin.qq.com/miniprogram/dev/component/navigator.html)组件和[``wx.navigateTo``](https://developers.weixin.qq.com/miniprogram/dev/api/route/wx.navigateTo.html)API来实现，但**只有页面栈顶是插件页面的时候才可以调用`wx.navigateTo`来实现，且页面栈内不得高于10层**
 
@@ -168,7 +168,7 @@ SIGNATURE = sha1([APPID, NONCESTR, TIMESTAMP, TOKEN].sort().join(''))
 
 #### 1. 插件的申请
 
-![图片 2](../images/2019-07-16/20190716image3.png)
+![图片 2](https://zhangmingemma.github.io/dist/images/2019-07-16/20190716image3.png)
 
 **任何注册的小程序**都可以在小程序后台申请插件，申请后需要等待插件开发者小程序管理员通过后，方可使用插件，如果调用没有通过申请的插件，则使用者小程序白屏，并报错：<span style="color:red">插件申请成功，待审核确认</span>，如果调用未申请的插件，则使用者小程序白屏，并会报错：<span style="color:red">插件未授权</span>。
 
@@ -184,22 +184,22 @@ SIGNATURE = sha1([APPID, NONCESTR, TIMESTAMP, TOKEN].sort().join(''))
 
 * 在小程序`app.json`文件中引用插件：
 
-  <!-- <img src="../images/2019-07-16/20190716image4.png" style="width:600px;border:1px solid #ededed"/> -->
+  <!-- <img src="https://zhangmingemma.github.io/dist/images/2019-07-16/20190716image4.png" style="width:600px;border:1px solid #ededed"/> -->
 
 * 在引用插件组件的页面中引用插件组件：
 
-  <img src="../images/2019-07-16/20190716image5.png" style="width:600px;border:1px solid #ededed"/>
+  <img src="https://zhangmingemma.github.io/dist/images/2019-07-16/20190716image5.png" style="width:600px;border:1px solid #ededed"/>
 
 * 在引用插件组件的页面中写入插件组件：
 
-  <img src="../images/2019-07-16/20190716image6.png" style="width:600px;border:1px solid #ededed"/>
+  <img src="https://zhangmingemma.github.io/dist/images/2019-07-16/20190716image6.png" style="width:600px;border:1px solid #ededed"/>
 
 * 在引用插件组件的页面中定义插件所需参数，即可使用插件
 
 * 为保证小程序正常运行，插件使用者需要针对插件调用失败等特殊情况做兜底逻辑
 
 如果插件只在一个分包内用到，可以将插件仅放在这个分包内，例如：
-<img src="../images/2019-07-16/20190716image7.png" style="width:600px;border:1px solid #ededed"/>
+<img src="https://zhangmingemma.github.io/dist/images/2019-07-16/20190716image7.png" style="width:600px;border:1px solid #ededed"/>
 
 但分包内使用插件有如下限制：
 
@@ -237,20 +237,20 @@ SIGNATURE = sha1([APPID, NONCESTR, TIMESTAMP, TOKEN].sort().join(''))
 
   * 在插件页面中引用`functional-page-navigator`
 
-    <img src="../images/2019-07-16/20190716image8.png" style="width:600px;border:1px solid #ededed"/>
+    <img src="https://zhangmingemma.github.io/dist/images/2019-07-16/20190716image8.png" style="width:600px;border:1px solid #ededed"/>
 
   * 在插件页面中声明用户信息获取成功的回调
 
-    <img src="../images/2019-07-16/20190716image9.png" style="width:600px;border:1px solid #ededed"/>
+    <img src="https://zhangmingemma.github.io/dist/images/2019-07-16/20190716image9.png" style="width:600px;border:1px solid #ededed"/>
 
   * 即可使用用户信息
-    <img src="../images/2019-07-16/20190716image10.png" style="width:600px;border:1px solid #ededed"/>
+    <img src="https://zhangmingemma.github.io/dist/images/2019-07-16/20190716image10.png" style="width:600px;border:1px solid #ededed"/>
 
 * [支付功能页](https://developers.weixin.qq.com/miniprogram/dev/framework/plugin/functional-pages/request-payment.html)：相当于调用`wx.requestPayment`的功能，支付功能页的使用与用户信息功能页类似，`function-page-navigator`参数`name=requestPayment`。**需要注意的是插件使用支付功能，需要在管理后台 小程序插件 -> 基本设置 -> 支付能力”设置项中。另外，无论是否通过申请，主体为个人小程序在使用插件时，都无法正常使用插件里的支付功能。**
 
 * [收货地址功能页](https://developers.weixin.qq.com/miniprogram/dev/framework/plugin/functional-pages/choose-address.html)：相当于调用[`wx.chooseAddress`](https://developers.weixin.qq.com/miniprogram/dev/api/open-api/address/wx.chooseAddress.html)的功能，支付功能页的使用与用户信息功能页类似，`function-page-navigator`参数`name=chooseAddress`。
 
-  ​                             <img src="../images/2019-07-16/20190716image11.png" style="width:600px;border:1px solid #ededed"/>
+  ​                             <img src="https://zhangmingemma.github.io/dist/images/2019-07-16/20190716image11.png" style="width:600px;border:1px solid #ededed"/>
 
 #### 2. 使用组件的限制
 
