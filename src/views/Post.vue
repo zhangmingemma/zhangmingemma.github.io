@@ -22,9 +22,6 @@
         <div class="post-catalog fixed" :class="{hide: !catalogHtml}" :style="`${isCatalogFixed ? 'left:'+catalogOffset.left+'px':''}`" v-if="isCatalogFixed">
             <div class="catalog-title">目录</div>
             <div class="catalog-body" v-html="catalogHtml" @click.prevent="anchor($event)"></div>
-            <span id="busuanzi_container_page_pv">
-                本文总阅读量<span id="busuanzi_value_page_pv"></span>次
-            </span>
         </div>
     </div>
 </template>

@@ -12,9 +12,10 @@
 
 <script lang="ts">
 import ListHandler from '@tool/ListHandler'
-import { defineComponent, ref } from '@vue/runtime-core'
+import { defineComponent, ref, watch } from '@vue/runtime-core'
 import Block from '@/components/Block.vue'
 import { useRoute } from 'vue-router'
+import { toTop } from '@/utils/tool/Tool'
 
 export default defineComponent({
     setup() {
@@ -22,6 +23,13 @@ export default defineComponent({
         const route = useRoute()
         tag.value = route.query.tag
         const _listCompiler = ListHandler.listCompiler({tags: [tag.value]})
+
+        watch(() => route.query.tag, () => {
+            tag.value = route.query.tag
+            toTop()
+            _listCompiler.reloadList({tags: [tag.value]})
+        })
+
         return {
             ..._listCompiler,
             tag

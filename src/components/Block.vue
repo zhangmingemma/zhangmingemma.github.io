@@ -56,6 +56,7 @@ article {
         font-size: $font-size-h5-excerpt;
         line-height: $line-height-large;
         word-wrap: break-word;
+        word-break: break-all;
     }
     a {
         text-decoration: none;

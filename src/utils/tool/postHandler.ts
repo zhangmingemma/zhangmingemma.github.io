@@ -75,7 +75,7 @@ class PostHandler {
         if (layout && layout.length >= 4) {
             info['title'] = layout[1]
             info['date'] = layout[2]
-            info['tags'] = layout[3].split(',')
+            info['tags'] = layout[3].split(',').map(s => s.trim())
         }
         return info
     }

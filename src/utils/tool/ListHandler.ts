@@ -46,7 +46,6 @@ class ListHandler {
         let _list = list.slice()
         if (tags && tags.length) {
             _list = list.filter((post:IPost) => post && post.tags && intersect(post.tags, tags).length)
-            
         } 
         return _list.slice(startIndex, _endIndex)
     }

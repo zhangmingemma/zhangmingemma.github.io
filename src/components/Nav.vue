@@ -3,12 +3,12 @@
         <div class="header-inner clearfix" :class="{'larger-nav': isPost}">
             <div class="header-inner-logo">
                 <img src="../assets/logo.png"/>
-                <router-link class="title home" to="/">Gemma's Blog</router-link>
+                <router-link class="title home" :class="{active: routeName === 'Home'}" to="/">Gemma's Blog</router-link>
             </div>
             <div class="header-inner-nav">
-                <router-link class="title" to="/">主页</router-link>
-                <router-link class="title" to="/list">归档</router-link>
-                <router-link class="title" to="/cv">CV</router-link>
+                <router-link class="title" :class="{active: routeName === 'Home'}" to="/">主页</router-link>
+                <router-link class="title" :class="{active: routeName === 'List'}" to="/list">归档</router-link>
+                <router-link class="title" :class="{active: routeName === 'CV'}" to="/cv">CV</router-link>
             </div>
         </div>
     </div>
@@ -16,16 +16,19 @@
 
 <script lang="ts">
 import { defineComponent, ref, watch } from 'vue'
-import { useRoute } from 'vue-router'
+import { RouteRecordName, useRoute } from 'vue-router'
 export default defineComponent({
     setup() {
+        const routeName = ref<RouteRecordName|null|undefined>('')
+        const isPost = ref<Boolean>(false)
         const route = useRoute()
-        const isPost = ref(false as Boolean)
         watch(() => route.name, () => {
+            routeName.value = route.name
             isPost.value = route.name === 'Post'
         })
 
         return {
+            routeName,
             isPost
         }
     }

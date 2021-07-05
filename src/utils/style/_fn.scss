@@ -41,7 +41,7 @@
     color: $color;
     transition: all .6s ease;
 
-    &:hover, &:focus, &:active {
+    &:hover, &:focus, &:active, &.active {
         color: $activeColor;
     }
 }
