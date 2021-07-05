@@ -3,6 +3,8 @@ const path = require('path')
 module.exports = {
     parallel: false,
     publicPath: process.env.NODE_ENV === "production" ? "/dist" : "/",
+    indexPath: path.resolve(__dirname, 'index.html'),
+    assetsDir: 'static',
     chainWebpack: config => {
         config.module.rule('md')
             .test(/\.md/)

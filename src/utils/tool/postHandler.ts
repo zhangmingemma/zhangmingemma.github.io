@@ -1,7 +1,7 @@
 import { nextTick, reactive, ref, toRefs, watchEffect} from "@vue/runtime-core"
 import axios, { AxiosResponse } from "axios"
 import CatalogHandler from "./CatalogHandler"
-import { promiseSync } from "./Tool"
+import { promiseSync, getPostPath } from "./Tool"
 import hljs from 'highlight.js'
 const marked = require('marked')
 const markedAST = require('marked-ast')
@@ -65,7 +65,7 @@ class PostHandler {
 
     // 获取文章信息
     async getPostInfo(fileName:string) {
-        const post:AxiosResponse = await axios.get(`./posts/${fileName}.md`)
+        const post:AxiosResponse = await axios.get(`${getPostPath()}/${fileName}.md`)
         const data:string = post.data
         const info:IPost = {}
         info['content'] = data

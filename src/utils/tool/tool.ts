@@ -30,3 +30,7 @@ export const toTop = () => {
 export const intersect = (listA:(string|number)[], listB:(string|number)[]) => {
     return listA.filter(x => listB.indexOf(x) >= 0) || []
 }
+
+export const getPostPath = () => {
+    return process.env.NODE_ENV === "production" ? "./dist/posts" : "./posts"
+}
