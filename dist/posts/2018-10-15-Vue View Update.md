@@ -84,7 +84,7 @@ function patchVnode (oldVnode, vnode) {
 
 接下来就是最复杂的diff算法的理解了，diff算法用于比较新旧虚拟节点树，是视图更新渲染的关键。下面是一张很经典的图，出自《React’s diff algorithm》，Vue的diff算法也同样，即仅在同级的vnode间做diff，递归地进行同级vnode的diff，最终实现整个DOM树的更新。
 
-<img style="width:400px;" src="../images/2018-10-15/vue-diff1.png">
+<img style="width:400px;" src="https://zhangmingemma.github.io/dist/images/2018-10-15/vue-diff1.png">
 
 diff的简易源码如下：
 ```
@@ -163,17 +163,17 @@ updateChildren (parentElm, oldCh, newCh) {
 
 过程比较复杂，概括可以理解为：首先设置新旧虚拟DOM节点的孩子树``newCh``、``oldCh``的起始``StartIdx``、结尾索引``EndIdx``。它们的2个变量相互比较，一共有4种比较方式。如果4种比较都没匹配，如果设置了key，就会用key进行比较，在比较的过程中，变量会往中间靠，一旦StartIdx>EndIdx表明oldCh和newCh至少有一个已经遍历完了，就会结束比较。
 
-<img style="width:400px;" src="../images/2018-10-15/vue-diff2.png">
+<img style="width:400px;" src="https://zhangmingemma.github.io/dist/images/2018-10-15/vue-diff2.png">
 
 结束时存在两种具体的情况：
 
 1. ``oldStartIdx > oldEndIdx``，可以认为oldCh先遍历完。当然也有可能newCh此时也正好完成了遍历，统一都归为此类。此时newStartIdx和newEndIdx之间的vnode是新增的，调用addVnodes，把这些虚拟node.elm全部插进before的后边.
 
-    <img style="width:400px;" src="../images/2018-10-15/vue-diff3.png">
+    <img style="width:400px;" src="https://zhangmingemma.github.io/dist/images/2018-10-15/vue-diff3.png">
 
 2. ``newStartIdx > newEndIdx``，可以认为newCh先遍历完。此时oldStartIdx和oldEndIdx之间的vnode在新的子节点里已经不存在了，调用removeVnodes将这些虚拟node.elm从dom里删除。
 
-    <img style="width:400px;" src="../images/2018-10-15/vue-diff4.png">
+    <img style="width:400px;" src="https://zhangmingemma.github.io/dist/images/2018-10-15/vue-diff4.png">
 
 ### 过程详解
 
@@ -182,9 +182,9 @@ diff的具体遍历比较过程可以归纳为4种情况：
 1. 当新旧起始节点为``null``时，则将起始索引``++``,并更新起始节点；同样的，当新旧结尾节点为``null``时，则将结尾索引``--``，并更新结尾节点
 2. 当新旧起始节点相同时（即key和sel都相同），则``patchVnode``进行patch，同时将新旧起始索引``++``；同样的，当新旧结尾节点相同时（即key和sel都相同），则``patchVnode``进行patch，同时将新旧结尾索引``--``
 3. 当旧起始节点和新结尾节点相同时，``patchVnode``进行patch，将oldStartNode.elm移动到旧结尾节点oldEndNode.elm之后，旧起始索引``++``新结尾索引``--``；<br/>
-    <img style="width:400px;" src="../images/2018-10-15/vue-diff5.png"><br/>
+    <img style="width:400px;" src="https://zhangmingemma.github.io/dist/images/2018-10-15/vue-diff5.png"><br/>
 同理，当新起始节点和旧结尾节点相同时，``patchVnode``进行patch，将旧结尾节点oldEndNode.elm移动到旧起始节点oldStartNode.elm之后，旧结尾索引``--``新起始索引``++``;<br/>
-    <img style="width:400px;" src="../images/2018-10-15/vue-diff6.png">
+    <img style="width:400px;" src="https://zhangmingemma.github.io/dist/images/2018-10-15/vue-diff6.png">
 4. 以上情况都不是的时候，使用key进行比较，从用旧虚拟节点树key生成的对象oldKeyToIdx中查找匹配的节点，所以为节点设置key可以更高效的利用dom。
     * 若新起始节点的key不在oldKeyToIdx中，在旧起始节点位置上插入新起始节点，同时新起始索引``++``
     * 若新起始节点的key在oldKeyToIdx中，且key相同的两个虚拟节点sel相同，则``patchVnode``进行patch，把key相同的旧虚拟节点的elm移动到oldStartVnode.elm之前，新起始索引``++``

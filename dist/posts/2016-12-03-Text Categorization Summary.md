@@ -23,9 +23,9 @@ tags: 算法, 文本分类
 **概率模型**
 
 　　我们可以用该流程的思想来解决出现在文档检索中的不确定性和找寻的不清楚性。概率模型的理论是基于概率排队的：如果文件是按相关概率递减方向排队时，那么就会出现最大的检索性能。选用此种模型可以克服BM和SVM中的不足，此种模型根据词与词间和文档间与词条的概率关联性进行搜索。设文档d和顾客查询c都用（a1,a2,…an）表示，当词条ti∈d时，有ai=1.否则ai=0,这种关系可数学表示为：
-<img src="../images/2016-12-03/20161203image1.png" class="center">
+<img src="https://zhangmingemma.github.io/dist/images/2016-12-03/20161203image1.png" class="center">
 其中
-<img src="../images/2016-12-03/20161203image2.png" class="center">
+<img src="https://zhangmingemma.github.io/dist/images/2016-12-03/20161203image2.png" class="center">
 　　f是所有参加训练的文档的总和，r则为顾客查询与文档集中相关的文档数，fi则表示训练文档集中有ti的文档数，ri则表示r个相关文档中有ti的文档数，模型的有点是有着非常严谨的数学理论基础，解决了不确定性推理的缺点，但是它的不足在于参数估计方面很困难，在文件和查询的表达方面也是很困难
 
 ### 文档分词
@@ -66,25 +66,25 @@ tags: 算法, 文本分类
 **互信息（MI）**
 
 　　如果用A表示包含词条t且属于类别c的文档频数，B为包含t但不属于c的文档频数，C表示属于c但是不包含t的文档频数，N表示语料中的文档总数，t和c的互信息由下式计算：
-<img src="../images/2016-12-03/20161203image3.png" class="center">
+<img src="https://zhangmingemma.github.io/dist/images/2016-12-03/20161203image3.png" class="center">
  
 如果t和c无关（即P(tc)=P(t)*P(c)），I(t,c)值自然为零。为了将互信息应用于多个类别，由下式计算t对于c的互信息：
-<img src="../images/2016-12-03/20161203image4.png" class="center">
+<img src="https://zhangmingemma.github.io/dist/images/2016-12-03/20161203image4.png" class="center">
 
 其中m为类别数，将低于特定阈值的词条从原始特征空间中移除，降低特征空间的维数，保留高于阈值的词条
 
 **信息增益（IG）**
 
 　　表示文档包含某一特征时文档类的平均信息量，定义为某一特征在文档中出现前后的信息熵之差。假定c为文本类变量，C为文本类的集合，d为文本，f为特征。对于特征f其信息增益记为IG(f)，计算公式
-<img src="../images/2016-12-03/20161203image5.png" class="center">
+<img src="https://zhangmingemma.github.io/dist/images/2016-12-03/20161203image5.png" class="center">
 
 **X2统计（CHI）**
 
 　　CHI统计方法度量词条t和文档类别c之间的相关程度，并假设t和c之间符合具有一阶自由度的x2分布，词条对于某类的x2统计值越高，它与类之间的相关性越大，携带的类别信息也较多，令N表示训练语料中的文档总数，c为某一特定类别，t表示特定的词条，A表示属于c类且包含t的文档频数，B表示不属于c类但包含t的文档频数，C表示属于c类但不包含t的文档频数，D表示既不属于c也不包含t的文档频数，则t对于c的CHI值计算公式：
-<img src="../images/2016-12-03/20161203image6.png" class="center">
+<img src="https://zhangmingemma.github.io/dist/images/2016-12-03/20161203image6.png" class="center">
 
 对于多类问题，分别计算t对于每个类别的CHI值，可以用下面两种标准计算t对整个训练集的CHI：
-<img src="../images/2016-12-03/20161203image7.png" class="center">
+<img src="https://zhangmingemma.github.io/dist/images/2016-12-03/20161203image7.png" class="center">
 
 其中m为类别数，从原始特征空间中移除低于特定阈值的词条，保留高于该阈值的词条作为文档表示的特征
 
@@ -93,26 +93,26 @@ tags: 算法, 文本分类
 **布尔权重**
 
 　　均权，布尔权重是最最简单的一种赋权方法，这种方法将所有特征同等看待，既不突出又不抑制任何一个特征。特征项的权值或者等于1，或者等于0,计算公式为:
-<img src="../images/2016-12-03/20161203image8.png" class="center">
+<img src="https://zhangmingemma.github.io/dist/images/2016-12-03/20161203image8.png" class="center">
  
 其中Wi为特征项i的权重，TF为特征项i出现的次数，这种方法的缺点就是无法体现一个词在文本中的重要程度。
 
 **TF权重**
 
 　　TF权重(Term Frequency)又称词频权重，或称特征项频率。不同类别的文档，在特征项的出现频率上有很大差异，因此特征项频率信息是文本分类的重要参考之一，一般较大的特征项在该类文档中具有较高的权重。它的计算公式为:
-<img src="../images/2016-12-03/20161203image9.png" class="center">
+<img src="https://zhangmingemma.github.io/dist/images/2016-12-03/20161203image9.png" class="center">
 
 　　实际应用中各类别文本的长度很难一致，各类文本包含的字数、词数可能差别会很大，这对词频会造成直接影响，因此通常对词频作归一化处理。另外，如果特征选择后的特征项中含有较多的非名词(如代词、数词、连词)，而这些词出现的概率非常高，如果使用TF权重加权，会赋值给这些词较高的权重，这势必对分类结果产生不利影响，因此，TF权重对去停用词的效果具有较强依赖性。
 
 **IDF权重**
 
 　　IDF越大，此特征项在文档中的的分布越集中，说明它在区分该文档内容属性方面的能力越强。反文档频率是特征项在文档集分布情况的量化。该方法以出现特征词的文本数为参数构建的函数代表特征项的权重。这体现了信息论中集中度的思想，具有一定的合理性，但忽略了分散度和频度两个因素，因此具有片面性，公式如下:
-<img src="../images/2016-12-03/20161203image11.png" class="center">
+<img src="https://zhangmingemma.github.io/dist/images/2016-12-03/20161203image11.png" class="center">
 
 **TFIDF权重**
 
 　　TFIDF(Term Frequency-Inverse Document Frequency)是由是由Salton在1988年提出的，TFIDF权重综合考虑了TF权重和IFD权重的优点和不足，是目前加权效果最好的权重计算方法，广泛应用于文本处理领域。其基本思想是:如果特征项t在一类文档的出现的次数越多，而在整个文档集中出现的频率越低，那么t对分类的作用越大，应该赋予越高的权重，例如，助词“的”几乎在每篇文档中都出现，因此它的TF值非常高，相反，IDF值却非常低，综合考虑TF和IDF，该词将被赋予很低的权重。TFIDF权重，即TF权重和IDF权重的组合，利用了词频和文本频率两种信息，公式如下:
-<img src="../images/2016-12-03/20161203image12.png" class="center">
+<img src="https://zhangmingemma.github.io/dist/images/2016-12-03/20161203image12.png" class="center">
 
 式中TF为第k个特征词在第1篇文本中出现次数，N为训练集中总文本数，nk为出
 现第k个特征词的文本数，a为一个经验值，一般取0. 01,  0. 1或者1
@@ -122,14 +122,14 @@ tags: 算法, 文本分类
 **向量夹角的余弦**
 
 　　设文档A在VSM空间中的向量形式为a(x1,x2,…,xa)，文档B在VSM空间中向量形式为b(y1,y2,…,yb),则A,B文本的向量夹角的余弦表示为
-<img src="../images/2016-12-03/20161203image13.png" class="center">
+<img src="https://zhangmingemma.github.io/dist/images/2016-12-03/20161203image13.png" class="center">
  
 两个向量夹角的余弦值越大，表示这两个向量的相似度越高
 
 **欧氏距离**
 
 　　欧式距离是通过空间向量点之间的距离来表示文本的相关程度，具体的形式为：
-<img src="../images/2016-12-03/20161203image14.png" class="center">
+<img src="https://zhangmingemma.github.io/dist/images/2016-12-03/20161203image14.png" class="center">
 
 其中d(x,y)是样本x和y的欧式距离，m是样本属性总数，两个向量点之间的欧式距离越小，表示两个向量的相似度越高，在文本分类领域，使用向量夹角余弦计算文本相似度的效果，要好于欧式距离
 
@@ -152,13 +152,13 @@ tags: 算法, 文本分类
 **NaiveBayes算法**
 
 　　贝叶斯分类是统计学分类方法，它是一类利用概率统计知识进行分类的算法。在许多场合，朴素贝叶斯(NaiveBayes, NB)分类算法可以与决策树和神经网络分类算法相媲美，该算法能运用到大型数据库中，且方法简单、分类准确率高、速度快。由于贝叶斯定理假设一个属性值对给定类的影响独立于其它属性的值，而此假设在实际情况中经常是不成立的，因此其分类准确率可能会下降。具体地，设每个数据样本用一个n维特征向量来描述n个属性的值，即:X={X1,X2,…,Xn}假定有m个类，分别用C1,C2,…,Cm表示。给定一个未知的数据样本X,若朴素贝叶斯分类法将未知的样本X分配给类C，则一定是:
-<img src="../images/2016-12-03/20161203image15.png" class="center">
+<img src="https://zhangmingemma.github.io/dist/images/2016-12-03/20161203image15.png" class="center">
 
 根据贝叶斯定律：
-<img src="../images/2016-12-03/20161203image16.png" class="center">
+<img src="https://zhangmingemma.github.io/dist/images/2016-12-03/20161203image16.png" class="center">
 
 由于P(X)对于所有类为常数，最大化后验概率P(Ci |x)可转化为最大化先验概率P(x|Ci)P(Ci)。如果训练数据集中有许多属性和元组，计算P(x|Ci)的开销可能非常大，为此，通常假设各属性的取值相互独立，这样
-<img src="../images/2016-12-03/20161203image17.png" class="center">
+<img src="https://zhangmingemma.github.io/dist/images/2016-12-03/20161203image17.png" class="center">
 
 先验概率可以从训练数据集中求得。根据此方法，对于一个位置类别的样本X，可以分别计算出X属于每一个类别Ci的概率然后选择其中概率最大的类别作为其类别。
 
@@ -171,14 +171,14 @@ tags: 算法, 文本分类
 * 对于一个测试文本，根据特征词形成测试文本向量
 
 * 计算该测试文本与训练集中每个文本的文本相似度：
-  <img src="../images/2016-12-03/20161203image18.png" class="center">
+  <img src="https://zhangmingemma.github.io/dist/images/2016-12-03/20161203image18.png" class="center">
 
 式中di为测试文本的特征向量，dj为第j类的中心向量；M为特征向量的维数；Wk为向量的第k维。k的值的确定一般先采用一个初始值，然后根据实验测试K的结果调整K值，一般初值设定为几十到几百
 
 * 按照文本相似度，在训练文本集中选出与测试文本最相似的k个文本
 
 * 在测试文本的k个近邻中，依次计算每类的权重，计算公式
-  <img src="../images/2016-12-03/20161203image19.png" class="center">
+  <img src="https://zhangmingemma.github.io/dist/images/2016-12-03/20161203image19.png" class="center">
 
 x为测试文本的特征向量；Sim(x,di)为相似度计算公式；b为阈值，有嗲与优化选择；而y(di,cj)的取值为1或者0，如果di属于cj，则函数值为1，否则为0
 
@@ -188,16 +188,16 @@ x为测试文本的特征向量；Sim(x,di)为相似度计算公式；b为阈值
 **类中心向量法**
 
 　　类中心向量法的算法思想非常简单：将每一类别文本训练后得到该类别的中心向量Cj(W1,W2,…,Wj)分类时，将待分类文本T表示成n维向量的形式T(W1,W2,…,Wn)然后，计算文本T与每类中心向量的相似度，相似度计算可以采用向量夹角的余弦或是欧氏距离表示，将T归类为与其相似度最大的类中：
-<img src="../images/2016-12-03/20161203image20.png" class="center">
+<img src="https://zhangmingemma.github.io/dist/images/2016-12-03/20161203image20.png" class="center">
 
 类中心的选择有三种方式：平均中心、和平均、归一化平均。和中心是某一类别中所有向量相加之和：
-<img src="../images/2016-12-03/20161203image21.png" class="center">
+<img src="https://zhangmingemma.github.io/dist/images/2016-12-03/20161203image21.png" class="center">
 
 将和中心与该类向量的个数相除得到类别的平均中心：
-<img src="../images/2016-12-03/20161203image22.png" class="center">
+<img src="https://zhangmingemma.github.io/dist/images/2016-12-03/20161203image22.png" class="center">
 
 而采用二范数对平均中心归一化处理得到归一化中心：
-<img src="../images/2016-12-03/20161203image23.png" class="center">
+<img src="https://zhangmingemma.github.io/dist/images/2016-12-03/20161203image23.png" class="center">
 
 类中心向量法的优点是对训练集进行了最大程度的裁剪，待分类文本只需与极少的类中心向量对比，就可以将其分类，因此训练和分类速度很快。缺点是分类精度受类别的分布影响较大，当类别分布均匀，边界清晰时，分类精度较高;当类别分布不平衡，边界模糊时，分类的效果不好。
 
@@ -206,12 +206,12 @@ x为测试文本的特征向量；Sim(x,di)为相似度计算公式；b为阈值
 　　支持向量机SVM(Support Vector Machines)是Vapnik等人提出的一种基于统计学习理论的机器学习方法。SVM建立在统计学理论的VC理论和结构风险最小化原理基础上，其基本思想是:使用简单的线形分类器划分样本空间，如果一个训练集中的矢量被一个超平面正确地线性分割，且距离超平面最近的矢量之间的距离最大，则称该超平面为最佳超平面，其中距离超平面最近的对决策面设计起作用的点称为支持向量(Support Verctors)。支持向量机在解决小样本，非线性及高维模式识别问题等方面表现出明显的优势。
 
 　　SVM的基本思想可用图3-1的两维情况来说明。图中，实心点和空心点代表两类样本，H为分类线，H1, H2分别为过各类中离分类线最近的样本且平行于分类线的直线，它们之间的距离叫做分类间隔(margin)。所谓最优分类线就是要求分类线不但能将两类正确分开(训练错误率为0)，而且使分类间隔最大。
-<img src="../images/2016-12-03/20161203image24.png" class="center">
+<img src="https://zhangmingemma.github.io/dist/images/2016-12-03/20161203image24.png" class="center">
 
 　　支持向量机主要优点：对高维、稀疏数据不敏感，更好的捕捉了数据的内在特征，准确率高；缺点：对于非线性问题，核函数选择较为困难，分类结果召回率较低
 
 　　训练样本在各个类别中分布的不均匀性对许多分类器会形成噪声。例如:在Bayes模型中，如果先验分布无法确定，“均匀分布”是符合信息论的最大嫡原则( Maximum Entropy)的;对于KNN和SVM分类器，远离类别边界的样本往往对分类没有什么作用，KNN分类器还会因为类别边界部分样本分布的不均匀而造成测试样本的错分。从候选训练样本集中选择合适的训练样本子集，不仅可以减少分类器的学习时间，甚至可以提高分类器的准确性。四种方法的实验结果比较：
-<img src="../images/2016-12-03/20161203image25.png" class="center">
+<img src="https://zhangmingemma.github.io/dist/images/2016-12-03/20161203image25.png" class="center">
 　
 　　可以看出支持向量机具有最好的分类效果，各项指标全面领先于其他分类算法。KNN分类效果仅次于支持向量机，而类中心向量法也有很好的分类表现，贝叶斯的分类效果最差，与其它三种算法相比有较大差距。在追求分类效率而对分类精度要求不高的领域，可以考虑使用类中心向量分类法，可以极大提高分类的效率;在对对分类精度要求较高时，可以采用SVM或KNN分类法。
 
@@ -228,16 +228,16 @@ x为测试文本的特征向量；Sim(x,di)为相似度计算公式；b为阈值
 |  判断为不属于该类的文档数	|          c	         |            d            |
 
 这时，r和P分别定义为:
-<img src="../images/2016-12-03/20161203image26.png" class="center">
+<img src="https://zhangmingemma.github.io/dist/images/2016-12-03/20161203image26.png" class="center">
 
 **宏平均and微平均**
 
 　　用列联表只能评价单个类的分类性能，如果要对分类的整体性能进行评价，通常使用宏
 平均    < Macro-Averaging)和微平均    ( Micro-Averaging )。宏观平均是先对每一个类统计r、p值，然后对所有的类求r、P的平均值，即
-<img src="../images/2016-12-03/20161203image27.png" class="center">
+<img src="https://zhangmingemma.github.io/dist/images/2016-12-03/20161203image27.png" class="center">
 
 微观平均是先建立一个全局列联表，然后根据这个全局列联表进行计算，即:
-<img src="../images/2016-12-03/20161203image28.png" class="center">
+<img src="https://zhangmingemma.github.io/dist/images/2016-12-03/20161203image28.png" class="center">
 
 显然，宏平均是对类的平均，所以容易受小类的影响，而微平均则是对文档的平均，容易受到大类的影响。
 
@@ -249,17 +249,17 @@ x为测试文本的特征向量；Sim(x,di)为相似度计算公式；b为阈值
 **F值(F-measure )**
 
 　　另一种常用的将查全率和查准率结合起来的性能评价方法是F测量，其计算公式为:
-<img src="../images/2016-12-03/20161203image29.png" class="center">
+<img src="https://zhangmingemma.github.io/dist/images/2016-12-03/20161203image29.png" class="center">
 
 　　其中，β是一个用来调节查全率和查准率权重的参数。β一般取值为1,公式转化为:
-<img src="../images/2016-12-03/20161203image30.png" class="center">
+<img src="https://zhangmingemma.github.io/dist/images/2016-12-03/20161203image30.png" class="center">
 
 　　显然，BEP是F1的特殊形式，因为当r=p时，有F1 =BEP
 
 **多标注分类问题**
 
 　　每一个输入的测试文档，都会返回一个排序后的文档类列表。这时，两个指标分别定为:
-<img src="../images/2016-12-03/20161203image31.png" class="center">
+<img src="https://zhangmingemma.github.io/dist/images/2016-12-03/20161203image31.png" class="center">
 
 　　整个分类器的评估应该是对所有测试文档的这两个指标的统计平均。通常使用的统计平均为11点插值平均查准率(Interpolated 11-point Average Precision )
 
