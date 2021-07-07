@@ -13,13 +13,9 @@
             <div class="markdown-body" id="js-markdown-body" v-html="postHtml"/>
             <div class="post-body-gitalk" id="gitalk-container"></div>
         </div>
-        <!-- 原本目录 -->
-        <div class="post-catalog" :class="{hide: isCatalogFixed}" id="js-catalog">
-            <div class="catalog-title">目录</div>
-            <div class="catalog-body" v-html="catalogHtml" @click.prevent="anchor($event)"></div>
-        </div>
-        <!-- 吸顶目录 -->
-        <div class="post-catalog fixed" :class="{hide: !catalogHtml}" :style="`${isCatalogFixed ? 'left:'+catalogOffset.left+'px':''}`" v-if="isCatalogFixed">
+
+        <div class="post-catalog" :id="`${isCatalogFixed? 'js-catalog':''}`" v-if="isCatalogFixed && catalogHtml" :style="`width:${catalogOffset.width}px`"></div>
+        <div class="post-catalog" :id="`${isCatalogFixed? '':'js-catalog'}`" :class="{fixed: isCatalogFixed}" :style="`${isCatalogFixed ? 'left:'+catalogOffset.left+'px':''}`" v-if="catalogHtml">
             <div class="catalog-title">目录</div>
             <div class="catalog-body" v-html="catalogHtml" @click.prevent="anchor($event)"></div>
         </div>
@@ -52,6 +48,7 @@ export default defineComponent({
         }
 
         const tapTag = (tag:string) => {
+            if (!tag) return 
             toTop()
             router.push(`/tag?tag=${tag}`)
         }
@@ -91,6 +88,7 @@ export default defineComponent({
         .title {
             padding: 0;
             margin: 0;
+            font-size: $font-size-header-list;
         }
         .footer {
             @include flex-center(vert);

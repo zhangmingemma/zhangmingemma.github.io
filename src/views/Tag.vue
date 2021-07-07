@@ -42,7 +42,6 @@ export default defineComponent({
 <style lang="scss" scoped>
 .tag {
     @include outer-container();
-    padding: 0;
     &-header {
         height: $header-height-large;
         background: $bg-light-grey;
@@ -50,6 +49,9 @@ export default defineComponent({
         flex-direction: column;
         font-size: $font-size-h3-small;
         font-weight: $font-weight-bold;
+        @include media-breakpoint-down($content-min-width) {
+            height: $header-height;
+        }
         span {
             margin-top: .2rem;
             font-size: $font-size-h4-excerpt;

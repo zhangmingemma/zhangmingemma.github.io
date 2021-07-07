@@ -30,6 +30,7 @@ export default defineComponent({
         state.tagList = ListHandler.getAllPostTag()
 
         const tapTag = (tag:string) => {
+            if (!tag) return 
             const idx = state.selectedTags.indexOf(tag)
             if ( idx >= 0) {
                 state.selectedTags.splice(idx,1)
@@ -47,6 +48,7 @@ export default defineComponent({
         }
 
         const tapPost = (name:string) => {
+            if (!name) return 
             toTop()
             router.push(`/post?file=${name}`)
         }
@@ -84,25 +86,42 @@ export default defineComponent({
             top: 0;
             left: 7px;
             bottom: 0;
-            width: 2px;
+            width: .1rem;
             background: $line-catalog-grey;
             opacity: .5;
+            @include media-breakpoint-down($content-min-width) {
+                left: 5px;
+            }
         }
         &-item {
             margin: .6rem 0;
             padding: .2rem 0 .2rem 2.6rem;
             position: relative;
+            display: flex;
+            flex-wrap: nowrap;
             @include item-dot(6px, 50%, 5px, .8rem);
+            @include media-breakpoint-down($content-min-width) {
+                padding-left: 2rem;
+                @include item-dot(6px, 50%, 3px, .8rem);
+            }
 
             .date {
                 cursor: pointer;
                 color: $font-mid-grey;
                 width: 7rem;
                 display: inline-block;
+                flex-shrink: 0;
+                @include media-breakpoint-down($content-min-width) {
+                    width: 6rem;
+                }
             }
 
             .title {
                 cursor: pointer;
+                @include media-breakpoint-down($content-min-width) {
+                    @include singleLine();
+                    word-break: break-all;
+                }
                 &:hover, &:active, &:focus, &:link {
                     color: $link-red;
                 }

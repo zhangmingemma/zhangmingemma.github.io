@@ -113,11 +113,11 @@ class CatalogHandler {
             const tagName:string = label.replace('<', '').replace('>', '')
             const tagEles:HTMLCollection = document.getElementsByTagName(tagName)
             for(let i=0; i<tagEles.length; i++) {
-                    const tag:any = tagEles[i]
-                    if (tag.innerHTML === text) {
-                            const id:string = `heading-${index}`
-                            tag.setAttribute('id', id)
-                    } 
+                const tag:any = tagEles[i]
+                if (tag?.innerHTML === text) {
+                    const id:string = `heading-${index}`
+                    tag.setAttribute('id', id)
+                } 
             }
         })
     }

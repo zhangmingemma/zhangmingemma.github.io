@@ -28,7 +28,10 @@ export const toTop = () => {
 }
 
 export const intersect = (listA:(string|number)[], listB:(string|number)[]) => {
-    return listA.filter(x => listB.indexOf(x) >= 0) || []
+    if (listA instanceof Array && listB instanceof Array) {
+        return listA.filter(x => listB.indexOf(x) >= 0) || []
+    }
+    return []
 }
 
 export const getPostPath = () => {

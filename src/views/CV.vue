@@ -4,14 +4,20 @@
             <img style="width:140px;height:140px;transform: rotate(0) translate(0, 0);" src="../assets/me.jpeg"/>
             <div class="cv-header-contact">
                 <h2 style="margin: .5rem 0;">张敏</h2>
-                <span>
-                    <img src="../assets/github.png"/>
-                    <a target="_blank" href="https://github.com/zhangmingemma">zhangmingemma</a>
-                    <img src="../assets/email.png"/>
-                    <a>zh_min@aliyun.com</a>
-                    <img src="../assets/tel.png"/>
-                    <a>18627750167</a>
-                </span>
+                <div class="cv-header-info">
+                    <div class="item">
+                        <img src="../assets/github.png"/>
+                        <a target="_blank" href="https://github.com/zhangmingemma">zhangmingemma</a>
+                    </div>
+                    <div class="item">
+                        <img src="../assets/email.png"/>
+                        <a>zh_min@aliyun.com</a>
+                    </div>
+                    <div class="item">
+                        <img src="../assets/tel.png"/>
+                        <a>18627750167</a>
+                    </div>
+                </div>
             </div>
         </div>
         <h3 class="cv-title">教育背景</h3>
@@ -31,7 +37,7 @@
         <div class="cv-seperate">
             <strong>腾讯科技有限公司—微信事业群—搜索应用部</strong>
             <strong>前端开发工程师</strong>
-            <span style="margin-left: 3rem;">2019.07-至今</span>
+            <span>2019.07-至今</span>
         </div>
         <span class="cv-subtitle">1. 问一问在线咨询等<strong>微信小程序开发</strong></span>
         <ul>
@@ -60,7 +66,7 @@
         <div class="cv-seperate">
             <strong>京东科技集团—微信手 Q 业务部—交易开发组</strong>
             <strong>前端开发实习生</strong>
-            <span style="margin-left: 3rem;">2018.06-2018.08</span>
+            <span>2018.06-2018.08</span>
         </div>
         <ul>
             <li>所在团队负责微信/QQ内京东购物入口，购物车和订单的业务需求开发，技术栈为原生JS，重构后为vue2，通过 mpvue 适配小程序与 H5 应用。</li>
@@ -70,7 +76,7 @@
         <div class="cv-seperate">
             <strong>网络地图服务分类检索门户<a style="margin-left:0;" target="_blank" href="https://github.com/zhangmingemma/vue_leaflet_mysql_geoserver"><img src="../assets/link.png"/></a></strong>
             <strong>项目负责人</strong>
-            <span style="margin-left: 3rem;">2018.01-2019.02</span>
+            <span>2018.01-2019.02</span>
         </div>
         <ul>
             <li>该项目目标为能按照领域主题对网络地图服务进行分类，并设计网站门户实现基于类别标签的服务检索。本人承担全部算法设计、网络门户设计与全部开发工作。</li>
@@ -90,7 +96,7 @@
         <div class="cv-seperate" style="margin-top:1.5rem;">
             <strong>GTWR 云计算平台<a style="margin-left:0;" target="_blank" href="https://github.com/zhangmingemma/gtwr_vue"><img src="../assets/link.png"/></a></strong>
             <strong>项目负责人</strong>
-            <span style="margin-left: 3rem;">2017.01-2017.06</span>
+            <span>2017.01-2017.06</span>
         </div>
         <ul>
             <li>该项目旨在搭建在线计算平台，支持用户在线设置参数进行 GTWR 计算，并实时获取计算结果与精度评估报告，本人负责 Web 前端开发、项目管理、项目集成及版本更新迭代等工作。</li>
@@ -99,7 +105,7 @@
         <div class="cv-seperate" style="margin-top:1.5rem;">
             <strong>测绘遥感信息工程国家重点实验室研究生会</strong>
             <strong>主席</strong>
-            <span style="margin-left: 3rem;">2016.12-2017.12</span>
+            <span>2016.12-2017.12</span>
         </div>
         <ul>
             <li>负责实验室研究生会与校研究生会、实验室学生工作办公室的信息上传下达，负责各部门工作的统筹安排，负责策划并筹办安排体育、学术、文娱活动。</li>
@@ -110,8 +116,8 @@
 <style lang="scss" scoped>
 .cv {
     @include outer-container();
-    min-width: 720px;
     color: $font-black;
+    font-size: $font-size-h5-excerpt;
     a {
         color: $font-dark-grey;
         margin-left:.5rem
@@ -129,16 +135,26 @@
     align-items: flex-end;
     &-contact {
         margin-left: 1rem;
-        img {
-            width: 24px;
-            height: 24px;
-            transform: rotate(0) translate(0, 0);
-            &:nth-of-type(n+2) {
-                margin-left: 2rem;
-            }
-        }
-        span {
+        .cv-header-info {
             @include flex-center(vert);
+            .item {
+                @include flex-center(vert);
+                &:nth-of-type(n+2) {
+                    margin-left: 2rem;
+                    @include media-breakpoint-down($content-min-width) {
+                        margin-top: .4rem;
+                        margin-left: 0;
+                    }
+                }
+                img {
+                    width: 24px;
+                    height: 24px;
+                    transform: rotate(0) translate(0, 0);
+                }
+            }
+            @include media-breakpoint-down($content-min-width) {
+                flex-wrap: wrap;
+            }
         }
     }
 }
@@ -152,6 +168,15 @@
 .cv-seperate {
     span:nth-of-type(n+2),strong:nth-of-type(n+2) {
         margin-left: 3rem;
+        @include media-breakpoint-down($content-min-width) {
+            margin-left: 1.5rem;
+        }
+    }
+    strong:nth-of-type(n+2) {
+        margin-right: 3rem;
+        @include media-breakpoint-down($content-min-width) {
+            margin-right: 1.5rem;
+        }
     }
 }
 .cv-subtitle {

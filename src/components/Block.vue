@@ -22,10 +22,12 @@ export default defineComponent({
     setup() {
         const router = useRouter()
         const tapPost = (name:string) =>{
+            if (!name) return 
             toTop()
             router.push(`/post?file=${name}`)
         }
         const tapTag = (tag:string) => {
+            if (!tag) return 
             toTop()
             router.push(`/tag?tag=${tag}`)
         }

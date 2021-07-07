@@ -45,7 +45,7 @@ class ListHandler {
         let _endIndex = endIndex || list.length
         let _list = list.slice()
         if (tags && tags.length) {
-            _list = list.filter((post:IPost) => post && post.tags && intersect(post.tags, tags).length)
+            _list = list.filter((post:IPost) => post?.tags && intersect(post.tags, tags).length)
         } 
         return _list.slice(startIndex, _endIndex)
     }
@@ -90,7 +90,7 @@ class ListHandler {
     getAllPostTag() {
         const tagList:string[] = []
         this.TotalPost.map((post:IPost) => {
-            post.tags?.map((tag:string) => {
+            post?.tags?.map((tag:string) => {
                 if (tagList.indexOf(tag) < 0) {
                     tagList.push(tag)
                 }

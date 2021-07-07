@@ -41,7 +41,7 @@
     color: $color;
     transition: all .6s ease;
 
-    &:hover, &:focus, &:active, &.active {
+    &:hover, &.active {
         color: $activeColor;
     }
 }
@@ -52,7 +52,7 @@
     padding: 0 2rem;  
     max-width: $max-width;
     box-sizing: border-box;
-    @include media-breakpoint-down(s) {
+    @include media-breakpoint-down($content-min-width) {
         padding: 0 1rem;
     }
 }

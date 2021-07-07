@@ -17,6 +17,7 @@ body, html {
     padding: .4rem .6rem;
     border-radius: .4rem;
     margin-right: .6rem;
+    margin-top: .6rem;
     line-height: 1;
     cursor: pointer;
 
@@ -52,7 +53,7 @@ body, html {
                 background: $line-catalog-grey;
                 border-radius: 3px;
             }
-            &:active, &:focus {
+            &:active, &:focus, &.selected {
                 color: $link-red;
                 background: $line-catalog-grey;
                 border-radius: 3px;

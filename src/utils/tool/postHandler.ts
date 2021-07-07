@@ -40,7 +40,7 @@ class PostHandler {
 
         const { res } = promiseSync<IPost>(this.getPostInfo(fileName))      
         watchEffect(async() => {
-            if (res.value) {
+            if (res.value && res.value.content) {
                 state.post = res.value
                 postHtml.value = marked(res.value.content)
                 await nextTick()
@@ -65,17 +65,20 @@ class PostHandler {
 
     // 获取文章信息
     async getPostInfo(fileName:string) {
+        if (!fileName) return {}
         const post:AxiosResponse = await axios.get(`${getPostPath()}/${fileName}.md`)
         const data:string = post.data
         const info:IPost = {}
-        info['content'] = data
-        info['abstract'] = this.getPostAbstract(data)
-        info['name'] = this.getPostName(fileName)
-        const layout = this.matchPostBase(data)
-        if (layout && layout.length >= 4) {
-            info['title'] = layout[1]
-            info['date'] = layout[2]
-            info['tags'] = layout[3].split(',').map(s => s.trim())
+        if (data) {
+            info['content'] = data
+            info['abstract'] = this.getPostAbstract(data)
+            info['name'] = this.getPostName(fileName)
+            const layout = this.matchPostBase(data)
+            if (layout && layout.length >= 4) {
+                info['title'] = layout[1]
+                info['date'] = layout[2]
+                info['tags'] = layout[3].split(',').map(s => s.trim())
+            }
         }
         return info
     }
@@ -85,8 +88,10 @@ class PostHandler {
         if (filePath) {
             const paths:string[] = filePath.split('/')
             if (paths && paths.length) {
-                const fileName:string = paths.pop()!
-                return fileName.replace(/\.\w+$/, '')
+                const fileName:string|undefined = paths.pop()
+                if (fileName) {
+                    return fileName.replace(/\.\w+$/, '')
+                }
             }
         }
         return ''
@@ -114,7 +119,7 @@ class PostHandler {
         let result:string = ''
         if (ast && ast.length) {
             ast.map((astItem:any) => {
-                if (['paragraph', 'heading', 'strong', 'em'].indexOf(astItem.type) >= 0) {
+                if (['paragraph', 'heading', 'strong', 'em'].indexOf(astItem?.type) >= 0) {
                     if (astItem.text && astItem.text.length) {
                         astItem.text.map((textItem:any) => {
                             if (typeof textItem === 'string') {
@@ -129,7 +134,7 @@ class PostHandler {
                     }
                 }
 
-                if (astItem.type === 'list' && astItem.body && astItem.body.length) {
+                if (astItem?.type === 'list' && astItem?.body?.length) {
                     astItem.body.map((listItem:any) => {
                         if (listItem.type === 'listitem') {
                             result += this.parseMarkAst(astItem)
