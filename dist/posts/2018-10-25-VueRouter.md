@@ -1,6 +1,6 @@
 <!-- ---
-title: vue-router实现原理
-date: 2018-10-17
+title: Vue (五)：Vue Router实现原理
+date: 2018-10-25
 tags: JavaScript, Vue
 --- -->
 
