@@ -1,8 +1,8 @@
-<!-- ---
+
 title: Vue (五)：Vue Router实现原理
 date: 2018-10-25
 tags: JavaScript, Vue
---- -->
+
 
 vue-router是 Vue.js 官方的路由管理器。它和 Vue.js 的核心深度集成，让构建单页面应用变得易如反掌。这篇文章讲述的主要内容便是vue-router的实现原理，相当于[vue-router源码](https://github.com/vuejs/vue-router)的粗浅理解。行文主要包括vue-router的使用方法、实现原理两大部分，使用方法的介绍是为了辅助实现原理的陈述。
 

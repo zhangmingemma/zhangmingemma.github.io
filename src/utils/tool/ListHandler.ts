@@ -24,7 +24,8 @@ class ListHandler {
         const { res } = this.getAllPostContent() 
         watchEffect(() => {
             if (res.value) {
-                this.TotalPost = this.sortPost(res.value.slice())
+                const realList = res.value.slice().filter(post => post.date && post.title)
+                this.TotalPost = this.sortPost(realList)
                 if (banPagination) {
                     reloadList({tags})
                 } else {
@@ -54,8 +55,8 @@ class ListHandler {
     sortPost(list: IPost[]) {
         const _list = list.slice()
         _list.sort((a:IPost,b:IPost) => {
-            const dateA:string = a.date?.replaceAll('-','') || ''
-            const dateB:string = b.date?.replaceAll('-','') || ''
+            const dateA:string = (a.date?.replaceAll('-','') || '').trim()
+            const dateB:string = (b.date?.replaceAll('-','') || '').trim()
             return parseInt(dateB) - parseInt(dateA)
         })
         return _list
