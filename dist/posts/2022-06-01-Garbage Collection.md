@@ -5,7 +5,7 @@ tags: JavaScript
 --- -->
 
 ### 什么是垃圾回收？
-程序运行过程中会产生`非活动对象`，这些对象没有被引用，占用着内存，需要被清除。这个清除的过程就是`垃圾回收`，让空间可以被再利用。对于持续运行的服务进程，必须要及时释放内存，否则，内存占用越来越高，轻则硬性系统性能，重则导致进程崩溃。自带垃圾回收机制的语言包括`Python`、`Java`、`JavaScript`等。
+程序运行过程中会产生`非活动对象`，这些对象没有被引用，占用着内存，需要被清除。这个清除的过程就是`垃圾回收`，让空间可以被再利用。对于持续运行的服务进程，必须要及时释放内存，否则，内存占用越来越高，轻则硬性系统性能，重则导致进程崩溃。自带垃圾回收机制的语言包括`Python`、 `Java`、 `JavaScript`等。
 
 ### 垃圾如何产生？
 Javascript的引用类型是保存在堆内存中的，然后在栈内存中保存一个对堆内存中实际对象的引用。所以，`Javascript`中对引用类型的操作都是操作对象的引用而不是实际的对象。举例：
@@ -17,7 +17,7 @@ test = [1,2]
 ```
 
 上面的代码，声明了变量`test`，引用了对象`{name: 'test'}`，接着对这个变量重新赋值为数组，即引用了另一个数组，之前的引用关系就没有了，对象`{name: 'test'}`就是没有引用关系的`垃圾`，需要被回收。
-<img style="width:400px;" class="center" src="https://zhangmingemma.github.io/dist/images/2022-06-01/1.png">
+<img style="width:600px;" class="center" src="https://zhangmingemma.github.io/dist/images/2022-06-01/1.png">
 
 ### 垃圾回收机制
 垃圾回收机制，就是定期找出无用内存，并释放的机制。之所以为`定期`，而不是`实时`，是因为`实时`开销太大。常见的垃圾回收机制有`标记清除法`和`引用计数法`。
@@ -29,11 +29,11 @@ test = [1,2]
 标记清除法，分为`标记`和`清除`两个阶段，`标记`阶段为所有`活动对象`做上标记，`清除`阶段则把`非活动对象`销毁掉。
 
 * 标记：从指针对象的起点开始，遍历全部对象，对可触达对象进行标记。下图分别是标记前、标记后内存中堆的状态
-<img style="width:400px;" class="center" src="https://zhangmingemma.github.io/dist/images/2022-06-01/2.png">
-<img style="width:400px;" class="center" src="https://zhangmingemma.github.io/dist/images/2022-06-01/3.png">
+<img style="width:600px;" class="center" src="https://zhangmingemma.github.io/dist/images/2022-06-01/2.png">
+<img style="width:600px;" class="center" src="https://zhangmingemma.github.io/dist/images/2022-06-01/3.png">
 
 * 清除：遍历整个堆，回收没有标记的对象，使其内存能够被再次利用。回收对象就是把对象作为分块，连接到`空闲链表`的单向链表，之后再分配控件的时候只需要遍历这个空闲链表，就可以找到可用的分块了
-<img style="width:400px;" class="center" src="https://zhangmingemma.github.io/dist/images/2022-06-01/4.png">
+<img style="width:600px;" class="center" src="https://zhangmingemma.github.io/dist/images/2022-06-01/4.png">
 
 
 ##### 2. 优点
@@ -43,23 +43,47 @@ test = [1,2]
 ##### 3. 缺点
 
 * 碎片化严重，容易产生小的分块，可能会导致分配所需内存较大时找不到合适的分块
-<img style="width:400px;" class="center" src="https://zhangmingemma.github.io/dist/images/2022-06-01/5.png">
+<img style="width:600px;" class="center" src="https://zhangmingemma.github.io/dist/images/2022-06-01/5.png">
 
 * 分配速度慢，由于空闲分块是用链表实现，分块可能都不连续，每次分配都需要遍历空闲链表，极端情况下需要遍历整个链表
-<img style="width:400px;" class="center" src="https://zhangmingemma.github.io/dist/images/2022-06-01/6.png">
+<img style="width:600px;" class="center" src="https://zhangmingemma.github.io/dist/images/2022-06-01/6.png">
 
-分配策略
+> 分配策略
 * First-Fit，找到大于等于`size`的快立刻返回（最为明智的选择）
 * Best-Fit，遍历整个空闲链表，返回大于等于`size`的最小分块（分配效率略逊色）
 * Worst-Fit，遍历整个空闲链表，找到最大分块，切成两部分，一部分`size`大小，并将该部分返回（会产生很多小碎片）
 
-> 分配速度慢的解决方案：制造多个空闲链表，分别存储不同size的回收对象分块，减少再次分配时的遍历次数
+分配速度慢的解决方案：制造多个空闲链表，分别存储不同size的回收对象分块，减少再次分配时的遍历次数
 
 ##### 4. 标记整理法
 
 在`标记清除法`之后，将`活动对象`向内存的一端移动，最后清理掉边界的内存
-<img style="width:400px;" class="center" src="https://zhangmingemma.github.io/dist/images/2022-06-01/7.png">
+<img style="width:600px;" class="center" src="https://zhangmingemma.github.io/dist/images/2022-06-01/7.png">
 
-#### 2. 引用计数法
+#### 二. 引用计数法
 
+引用计数法，把`对象是否不再需要`简化定义为`对象有没有其他对象在引用`，如果零引用，则将被垃圾回收。
 
+##### 1. 方案
+
+* 当声明了一个变量，并且将一个引用类型赋值给该变量的时候，这个值的引用次数就为1
+* 如果同一个值又被赋给另外一个变量，那么引用数加1
+* 如果该变量的值被其他的值覆盖了，那么引用数就减一
+* 当这个值的引用数变为0时，垃圾回收器运行的时候就会清理掉引用数为0的值所占用的内存
+
+##### 2. 优点
+可以立即回收垃圾，相比之下算法思路也更加清晰
+##### 3. 缺点
+* 首先需要一个计数器，占用很大的位置，因为我们无法估计被引用数量的上限
+* 循环引用的问题，下面的例子中对象`A`、`B`互相引用，他们的引用数量都是2，但是在`test`函数执行之后，对象`A`、`B`是应该被清理的，导致内存不会被释放
+
+```
+function test() {
+  let A = new Object()
+  let B = new Object()
+  A.b = B
+  B.a = A
+}
+```
+
+上面的例子用`标记清除法`的思路来看的话，`test`执行之后，两个对象不在作用域中，`A`、`B`都是非活动对象，会被清除掉。
