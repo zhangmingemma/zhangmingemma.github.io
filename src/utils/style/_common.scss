@@ -87,6 +87,9 @@ body, html {
         margin-top: 0 !important;
         padding-top: 1.5rem !important;
     }
+    h1 {
+      font-size: 1.6em !important; // h1太大了，修正一下
+    }
     p code {
         color: $link-red;
     }

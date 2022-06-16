@@ -25,7 +25,7 @@
 <script lang="ts">
 import { defineComponent, onMounted, ref } from '@vue/runtime-core'
 import Gitalk from 'gitalk'
-import { useRoute, useRouter } from 'vue-router'
+import { onBeforeRouteUpdate, useRoute, useRouter } from 'vue-router'
 import { GitHubOAuth, toTop } from '@tool/Tool'
 import PostHandler from '@tool/PostHandler'
 import catalogHandler from '@tool/CatalogHandler'
@@ -52,6 +52,10 @@ export default defineComponent({
             toTop()
             router.push(`/tag?tag=${tag}`)
         }
+
+        onBeforeRouteUpdate(() => {
+          location.reload()
+        })
 
         // 初始化gitalk
         onMounted(() => {

@@ -14,7 +14,7 @@ tags: 微信小程序
 
 #### 1. 插件的开发
 
-开发者开发插件前需要在已经注册号的小程序管理后台开通插件功能，填写插件基本信息、插件开发信息后，在开发者工具“开发类型”中选择“插件”即可创建插件项目[[插件开通及创建项目指引]]([https://developers.weixin.qq.com/miniprogram/introduction/plugin.html#%E5%BC%80%E5%8F%91%E6%8F%92%E4%BB%B6](https://developers.weixin.qq.com/miniprogram/introduction/plugin.html#开发插件))，新建后的插件项目将包含三个目录，以好物圈提供的“好物推荐”插件为例，创建的插件项目包含的目录及主要内容如下图所示：
+开发者开发插件前需要在已经注册号的小程序管理后台开通插件功能，填写插件基本信息、插件开发信息后，在开发者工具“开发类型”中选择“插件”即可创建插件项目<a href="https://developers.weixin.qq.com/miniprogram/introduction/plugin.html#%E5%BC%80%E5%8F%91%E6%8F%92%E4%BB%B6" target="_blank">[插件开通及创建项目指引]</a>，新建后的插件项目将包含三个目录，以好物圈提供的“好物推荐”插件为例，创建的插件项目包含的目录及主要内容如下图所示：
 
 ![好物推荐插件 (2)](https://zhangmingemma.github.io/dist/images/2019-07-16/20190716image1.png)
 
@@ -153,7 +153,7 @@ SIGNATURE = sha1([APPID, NONCESTR, TIMESTAMP, TOKEN].sort().join(''))
 * **选择上传配置：**在微信开发者工具中配置"上传代码时自动压缩混淆"、“上传代码时进行代码保护”等项目，以压缩插件代码，及保护插件代码安全（TODO）
 * **上传代码：**在微信开发者工具中点击“上传”，填写版本号（即为使用者可以指定的插件版本号），即可上传插件代码
 * **上传开发文档：**在“编辑器”中打开开发文档，编辑完成后，可以使用编辑器底部的上传入口上传插件文档，上传后的文档不会立刻发布，需要使用账号密码登录插件管理后台，在 小程序插件 > 基本设置 中预览、发布插件文档，文档发布后，可多次更新修改。
-* **提交审核：**上传后即可提交审核，提交审核时需要填写准确的插件服务类目、标签及功能描述，同时服务类目需要满足[官方开放的类目范围](https://developers.weixin.qq.com/miniprogram/introduction/plugin.html#开放范围及服务类目)，审核周期一般为7个工作日，审核结果将会通过模板消息、站内信通知管理员。
+* **提交审核：**上传后即可提交审核，提交审核时需要填写准确的插件服务类目、标签及功能描述，同时服务类目需要满足<a href="https://developers.weixin.qq.com/miniprogram/introduction/plugin.html#开放范围及服务类目" target="_blank">[官方开放的类目范围]</a>，审核周期一般为7个工作日，审核结果将会通过模板消息、站内信通知管理员。
 * **发布新版本：**审核通过后即可发布，发布时需要填写准确的版本更新信息，和支持的最低版本库
 
 需要注意的是插件没有体验版，可以发布多个线上版本，由使用者决定具体使用的版本号。上传后的插件由小程序框架对每个插件进行数据安全保护，保证他们之间不能窃取其他任何一方的数据，同时插件的逻辑代码也无法被使用方看法，这些都依赖于插件的安全隔离机制（TODO，安全隔离机制具体是啥，是否存在代码加密？）
@@ -231,9 +231,9 @@ SIGNATURE = sha1([APPID, NONCESTR, TIMESTAMP, TOKEN].sort().join(''))
 - 插件的请求域名列表与小程序相互独立；
 - 一些 API 不允许插件调用（这些函数不存在于 `wx` 对象下）。
 
-允许插件调用的API及其对应版本要求列表可参考[官方说明](https://developers.weixin.qq.com/miniprogram/dev/framework/plugin/api-limit.html)，若在插件中调用了不支持的API，监听fail回调，可获得错误信息为`getUserInfo:fail 系统错误，错误码：-12015,system error`。有些接口，例如`wx.login`、`wx.getUserInfo`、虽然在插件中不能使用，但可以通过插件功能页来达到目的，例如用户信息功能页、支付功能以及收货地址功能：
+允许插件调用的API及其对应版本要求列表可参考<a href="https://developers.weixin.qq.com/miniprogram/dev/framework/plugin/api-limit.html" target="_blank">[官方说明]</a>，若在插件中调用了不支持的API，监听fail回调，可获得错误信息为`getUserInfo:fail 系统错误，错误码：-12015,system error`。有些接口，例如`wx.login`、`wx.getUserInfo`、虽然在插件中不能使用，但可以通过插件功能页来达到目的，例如用户信息功能页、支付功能以及收货地址功能：
 
-* [用户信息功能页](https://developers.weixin.qq.com/miniprogram/dev/framework/plugin/functional-pages/user-info.html)：相当于调用`wx.login`和`wx.getUserInfo`，自基础库2.3.1开始，用户在功能页授权后，插件就可以直接调用`wx.login`和`wx.getUserInfo`无需再次进入功能页获取信息，自基础库版本2.6.3起，可以使用`wx.getSetting`查询用户是否授权过。用户信息功能页相关开发可按照如下步骤：
+* <a href="https://developers.weixin.qq.com/miniprogram/dev/framework/plugin/functional-pages/user-info.html" target="_blank">[用户信息功能页]</a>：相当于调用`wx.login`和`wx.getUserInfo`，自基础库2.3.1开始，用户在功能页授权后，插件就可以直接调用`wx.login`和`wx.getUserInfo`无需再次进入功能页获取信息，自基础库版本2.6.3起，可以使用`wx.getSetting`查询用户是否授权过。用户信息功能页相关开发可按照如下步骤：
 
   * 在插件页面中引用`functional-page-navigator`
 
@@ -246,9 +246,9 @@ SIGNATURE = sha1([APPID, NONCESTR, TIMESTAMP, TOKEN].sort().join(''))
   * 即可使用用户信息
     <img src="https://zhangmingemma.github.io/dist/images/2019-07-16/20190716image10.png" style="width:600px;border:1px solid #ededed"/>
 
-* [支付功能页](https://developers.weixin.qq.com/miniprogram/dev/framework/plugin/functional-pages/request-payment.html)：相当于调用`wx.requestPayment`的功能，支付功能页的使用与用户信息功能页类似，`function-page-navigator`参数`name=requestPayment`。**需要注意的是插件使用支付功能，需要在管理后台 小程序插件 -> 基本设置 -> 支付能力”设置项中。另外，无论是否通过申请，主体为个人小程序在使用插件时，都无法正常使用插件里的支付功能。**
+* <a href="https://developers.weixin.qq.com/miniprogram/dev/framework/plugin/functional-pages/request-payment.html" target="_blank">[支付功能页]</a>：相当于调用`wx.requestPayment`的功能，支付功能页的使用与用户信息功能页类似，`function-page-navigator`参数`name=requestPayment`。**需要注意的是插件使用支付功能，需要在管理后台 小程序插件 -> 基本设置 -> 支付能力”设置项中。另外，无论是否通过申请，主体为个人小程序在使用插件时，都无法正常使用插件里的支付功能。**
 
-* [收货地址功能页](https://developers.weixin.qq.com/miniprogram/dev/framework/plugin/functional-pages/choose-address.html)：相当于调用[`wx.chooseAddress`](https://developers.weixin.qq.com/miniprogram/dev/api/open-api/address/wx.chooseAddress.html)的功能，支付功能页的使用与用户信息功能页类似，`function-page-navigator`参数`name=chooseAddress`。
+* <a href="https://developers.weixin.qq.com/miniprogram/dev/framework/plugin/functional-pages/choose-address.html" target="_blank">[收货地址功能页]</a>：相当于调用`wx.chooseAddress`的功能，支付功能页的使用与用户信息功能页类似，`function-page-navigator`参数`name=chooseAddress`。
 
   ​                             <img src="https://zhangmingemma.github.io/dist/images/2019-07-16/20190716image11.png" style="width:600px;border:1px solid #ededed"/>
 
@@ -260,11 +260,11 @@ SIGNATURE = sha1([APPID, NONCESTR, TIMESTAMP, TOKEN].sort().join(''))
   - contact（打开客服会话）
   - getPhoneNumber（获取用户手机号）
   - getUserInfo（获取用户信息）
-- [open-data](https://developers.weixin.qq.com/miniprogram/dev/component/open-data.html)
-- [web-view](https://developers.weixin.qq.com/miniprogram/dev/component/web-view.html)
+- <a href="https://developers.weixin.qq.com/miniprogram/dev/component/open-data.html" target="_blank">[open-data]</a>
+- <a href="https://developers.weixin.qq.com/miniprogram/dev/component/web-view.html" target="_blank">[web-view]</a>
 
 以下组件的使用对基础库版本有要求：
 
-- [navigator](https://developers.weixin.qq.com/miniprogram/dev/component/navigator.html) 需要基础库版本 [2.1.0](https://developers.weixin.qq.com/miniprogram/dev/framework/compatibility.html)
-- [live-player](https://developers.weixin.qq.com/miniprogram/dev/component/live-player.html) 和 [live-pusher](https://developers.weixin.qq.com/miniprogram/dev/component/live-pusher.html) 需要基础库版本 [2.3.0](https://developers.weixin.qq.com/miniprogram/dev/framework/compatibility.html)
+- <a href="https://developers.weixin.qq.com/miniprogram/dev/component/navigator.html" target="_blank">[navigator]</a>[]() 需要基础库版本 [2.1.0]
+- <a href="https://developers.weixin.qq.com/miniprogram/dev/component/live-player.html" target="_blank">[live-player]</a> 和 <a href="https://developers.weixin.qq.com/miniprogram/dev/component/live-pusher.html" target="_blank">[live-pusher]</a> 需要基础库版本 [2.3.0]
 

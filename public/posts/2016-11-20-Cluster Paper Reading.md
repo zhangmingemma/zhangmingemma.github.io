@@ -9,7 +9,7 @@ tags: 算法, 文本分类
 
 　　聚类是将数据对象的集合分成相似的对象类的过程。使得同一个簇（或类）中的对象之间具有较高的相似性，而不同簇中的对象具有较高的相异性。按照聚类的尺度，聚类方法可被分为以下三种：基于距离的聚类算法、基于密度的聚类方法、基于互连性的聚类算法。其中基于距离的聚类算法是用各式各样的距离来衡量数据对象之间的相似度。基于密度的聚类算法主要是依据合适的密度函数等。基于互连性的聚类算法通常基于图或超图模型，将高度连通的对象聚为一类。 
 
-本文介绍的是Alex Rodriguez和Alessandro Laio在Science上发表的《[Clustering by fast search and find of density peaks](http://science.sciencemag.org/content/344/6191/1492)》所提出的一种新型的基于密度的聚类算法。
+本文介绍的是Alex Rodriguez和Alessandro Laio在Science上发表的<a href="http://science.sciencemag.org/content/344/6191/1492" target="_blank">《Clustering by fast search and find of density peaks》</a>所提出的一种新型的基于密度的聚类算法。
 
 ### 算法思想
 
