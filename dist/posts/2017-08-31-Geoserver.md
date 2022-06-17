@@ -8,11 +8,11 @@ GeoServer是 OpenGIS Web 服务器规范的 J2EE 实现，利用 GeoServer 可�
 
 **JAVA环境安装配置**
 
-* GeoServer需要JAVA环境，所以需要先安装[JAVA JDK,比如本文下载的是8u152_x64](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html),这里我的安装路径为系统默认的C:\Program Files\Java
+* GeoServer需要JAVA环境，所以需要先安装<a href="http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html" target="_blank">JAVA JDK,比如本文下载的是8u152_x64</a>,这里我的安装路径为系统默认的C:\Program Files\Java
 ![](https://zhangmingemma.github.io/dist/images/2017-08-31/20170831image1.png)
 安装之后会存在两个文件包分别是JDK的文件包和JRE的文件包
 
-* 接下来为重要的环境变量配置！！！奉上一个[环境配置链接](http://blog.csdn.net/tiantang_1986/article/details/53894947)
+* 接下来为重要的环境变量配置！！！奉上一个<a href="http://blog.csdn.net/tiantang_1986/article/details/53894947" target="_blank">环境配置链接</a>
 
 其中需要设置的环境变量为
 
@@ -26,7 +26,7 @@ Path: %JAVA_HOME%\jdk1.8.0_152\bin
 
 **GeoServer安装**
 
-* 首先下载，Stable版本的GeoServer无需安装TomCat等服务器，如果想要用TomCat来运行的话，选择下载Web Archive，不做解释。[GeoServer——Stable](http://geoserver.org/download/)
+* 首先下载，Stable版本的GeoServer无需安装TomCat等服务器，如果想要用TomCat来运行的话，选择下载Web Archive。<a href="http://geoserver.org/download/" target="_blank">GeoServer——Stable</a>
 ![](https://zhangmingemma.github.io/dist/images/2017-08-31/20170831image2.png)
 
 * 安装过程中就按照指令一步步安装就好了，其中需要注意的有：
