@@ -32,7 +32,7 @@ body, html {
     position: relative;
     padding: 0;
     margin: 0;
-    @include before-line();
+    @include before-line($line-middle-dark-grey);
     .item {
         margin: 0;
         padding: 0;
@@ -88,7 +88,10 @@ body, html {
         padding-top: 1.5rem !important;
     }
     h1 {
-      font-size: 1.6em !important; // h1太大了，修正一下
+        font-size: 1.4em !important; // h1太大了，修正一下
+    }
+    h2 {
+        font-size: 1.3em !important;
     }
     p code {
         color: $link-red;
@@ -99,6 +102,10 @@ body, html {
     }
     pre {
         margin-top: .5rem !important;
+    }
+    .highlight pre, pre {
+        color:#abb2bf !important;
+        background:#282c34 !important;
     }
     img {
         display: inline-block;

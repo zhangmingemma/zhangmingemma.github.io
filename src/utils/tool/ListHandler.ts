@@ -99,6 +99,23 @@ class ListHandler {
         })
         return tagList
     }
+
+    // 获取系列内的文章列表
+    getSetPostList(setName: string) {
+        const setPostList = ref<IPost[]>([])
+        if (this.TotalPost.length) {
+            setPostList.value = this.TotalPost.filter((post:IPost) => post.set == setName)
+        } else {
+            const { res } = this.getAllPostContent() 
+            watchEffect(() => {
+                if (res.value) {
+                    setPostList.value = res.value.slice().filter((post:IPost) => post.set == setName)
+                }
+            })
+            
+        }
+        return setPostList
+    }
 }
 
 export default new ListHandler()

@@ -3,6 +3,7 @@ import axios, { AxiosResponse } from "axios"
 import CatalogHandler from "./CatalogHandler"
 import { promiseSync, getPostPath } from "./Tool"
 import hljs from 'highlight.js'
+import ListHandler from "./ListHandler"
 const marked = require('marked')
 const markedAST = require('marked-ast')
 
@@ -26,6 +27,7 @@ type IPost = {
     name?: string,
     abstract?:string,
     content?: string,
+    set?: string
 }
 
 class PostHandler {
@@ -35,7 +37,8 @@ class PostHandler {
         const catalogHtml = ref<string>('')
         const state = reactive({
             catalogOffset: null as typeof CatalogHandler.CatalogOffset,
-            post: {} as IPost
+            post: {} as IPost,
+            sameSetPostList: [] as any
         })
 
         const { res } = promiseSync<IPost>(this.getPostInfo(fileName))      
@@ -43,6 +46,9 @@ class PostHandler {
             if (res.value && res.value.content) {
                 state.post = res.value
                 postHtml.value = marked(res.value.content)
+                if (state.post.set) {
+                    state.sameSetPostList = ListHandler.getSetPostList(state.post.set)
+                }
                 await nextTick()
                 catalogHtml.value = CatalogHandler.getCatalogHtml()
                 CatalogHandler.setHId()
@@ -78,6 +84,7 @@ class PostHandler {
                 info['title'] = layout[1]
                 info['date'] = layout[2]
                 info['tags'] = layout[3].split(',').map(s => s.trim())
+                info['set'] = (layout?.[4] || '').replace('set: ', '')
             }
         }
         return info
@@ -100,7 +107,7 @@ class PostHandler {
     // 匹配文章头部文本
     matchPostBase(data:string) {
         const content:string = data.split('\n').map(s => s.trim()).join('')
-        return content.match(/-+title: (.*?)date: (.*?)tags: (.*?)-+/)
+        return content.match(/-+title: (.*?)date: (.*?)tags: (.*?)((set: (.*?))?)-+/)
     }
 
     // 匹配文章摘要

@@ -16,8 +16,20 @@
 
         <div class="post-catalog" :id="`${isCatalogFixed? 'js-catalog':''}`" v-if="isCatalogFixed && catalogHtml" :style="`width:${catalogOffset.width}px`"></div>
         <div class="post-catalog" :id="`${isCatalogFixed? '':'js-catalog'}`" :class="{fixed: isCatalogFixed}" :style="`${isCatalogFixed ? 'left:'+catalogOffset.left+'px':''}`" v-if="catalogHtml">
-            <div class="catalog-title">目录</div>
-            <div class="catalog-body" v-html="catalogHtml" @click.prevent="anchor($event)"></div>
+            <div class="post-catalog-wrap">
+                <div class="post-catalog-wrap__title">目录</div>
+                <div class="post-catalog-wrap__body" v-html="catalogHtml" @click.prevent="anchor($event)"></div>
+            </div>
+            <div class="post-catalog-wrap">
+                <div class="post-catalog-wrap__title">同系列相关文章</div>
+                <div class="post-catalog-wrap__body set-post-list">
+                    <ul>
+                        <li v-for="(item, itemIdx) in sameSetPostList.filter(x => x.name != post.name)" :key="itemIdx">
+                            <a @click="goOtherPost(item)">{{item.title}}</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -33,10 +45,12 @@ import 'gitalk/dist/gitalk.css'
 import 'github-markdown-css'
 const md5 = require('js-md5')
 
+type IPost = typeof PostHandler.Post
 export default defineComponent({
     setup() {
         const route = useRoute()
         const router = useRouter()
+        console.error('log', route.query, route.path)
         const fileName:any = route.query.file
         const isCatalogFixed = ref<boolean>(false)
         const _postCompiler = PostHandler.postCompiler(fileName)
@@ -53,9 +67,16 @@ export default defineComponent({
             router.push(`/tag?tag=${tag}`)
         }
 
-        onBeforeRouteUpdate(() => {
-          location.reload()
-        })
+        const goOtherPost = (item:IPost) => {
+            console.error('goOtherPost', item)
+            if (!item.name) return
+            toTop()
+            // router.push(`/post?file=${item.name}`)
+        }
+
+        // onBeforeRouteUpdate(() => {
+        //   location.reload()
+        // })
 
         // 初始化gitalk
         onMounted(() => {
@@ -75,7 +96,8 @@ export default defineComponent({
         return {
             isCatalogFixed,
             ..._postCompiler,
-            tapTag
+            tapTag,
+            goOtherPost
         }
     }
 })
@@ -125,15 +147,41 @@ export default defineComponent({
         &.hide {
             opacity: 0;
         }
-        &-title {
-            font-size: $font-size-h1-excerpt;
-        }
-        &-body {
-            margin: 1rem 0;
-        }
+
         @include media-breakpoint-down($content-width) {
             display: none;
         }
+
+        &-wrap {
+            background: $bg-light-grey;
+            margin-bottom: 2rem;
+            padding: 1rem;
+            border-radius: 4px;
+            box-shadow: 1.5px 1.5px rgba(0, 0, 0, 0.05);
+            min-width: 240px;
+            &__title {
+                font-size: $font-size-h1-excerpt;
+                font-weight: bold;
+                padding-bottom: .75rem;
+                border-bottom: 1px solid $line-grey;
+            }
+            &__body {
+                margin-top: 1.5rem;
+            }
+            .set-post-list {
+                margin-top: .75rem;
+                ul{
+                    padding: 0;
+                    margin: 0;
+                    padding-left: 1rem;
+                    font-size: $font-size-h6-excerpt;
+                    color: $link-blue;
+                }
+                li {
+                    padding: .15rem 0;
+                }
+            }
+        }      
     }
 }
 
