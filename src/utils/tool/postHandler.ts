@@ -38,17 +38,15 @@ class PostHandler {
         const state = reactive({
             catalogOffset: null as typeof CatalogHandler.CatalogOffset,
             post: {} as IPost,
+            prePost: null as IPost|null,
+            nextPost: null  as IPost|null,
             sameSetPostList: [] as any
         })
-
         const { res } = promiseSync<IPost>(this.getPostInfo(fileName))      
         watchEffect(async() => {
             if (res.value && res.value.content) {
                 state.post = res.value
                 postHtml.value = marked(res.value.content)
-                if (state.post.set) {
-                    state.sameSetPostList = ListHandler.getSetPostList(state.post.set)
-                }
                 await nextTick()
                 catalogHtml.value = CatalogHandler.getCatalogHtml()
                 CatalogHandler.setHId()
@@ -57,6 +55,19 @@ class PostHandler {
             }
         })
 
+        const _listCompiler = ListHandler.listCompiler({ banPagination: true })
+
+        watchEffect(() => {
+            if (_listCompiler.postList) {
+                const curIndex = _listCompiler.postList.value.findIndex((item:IPost) => item.name == fileName)
+                state.prePost = _listCompiler.postList.value?.[curIndex + 1] || null
+                state.nextPost = _listCompiler.postList.value?.[curIndex - 1] || null
+                if (state.post.set) {
+                    state.sameSetPostList = _listCompiler.postList.value.filter((item:IPost) => item.set == state.post.set)
+                }
+            }
+        })
+        
         window.onresize = () => {
             state.catalogOffset = CatalogHandler.getCatalogOffset(true)
         }

@@ -82,6 +82,9 @@ class ListHandler {
             Promise.all(files.map(async (path:string) => {
                 const fileName:string = PostHandler.getPostName(path)
                 const info:IPost = await PostHandler.getPostInfo(fileName)
+                if (!this.TotalPost.find((post:IPost) => post.name == fileName)) {
+                    this.TotalPost.push(info)
+                }
                 return info
             }))
         )
@@ -98,23 +101,6 @@ class ListHandler {
             })
         })
         return tagList
-    }
-
-    // 获取系列内的文章列表
-    getSetPostList(setName: string) {
-        const setPostList = ref<IPost[]>([])
-        if (this.TotalPost.length) {
-            setPostList.value = this.TotalPost.filter((post:IPost) => post.set == setName)
-        } else {
-            const { res } = this.getAllPostContent() 
-            watchEffect(() => {
-                if (res.value) {
-                    setPostList.value = res.value.slice().filter((post:IPost) => post.set == setName)
-                }
-            })
-            
-        }
-        return setPostList
     }
 }
 

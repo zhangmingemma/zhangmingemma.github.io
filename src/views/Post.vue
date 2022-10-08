@@ -11,6 +11,18 @@
                 </div>
             </div>
             <div class="markdown-body" id="js-markdown-body" v-html="postHtml"/>
+            <div class="post-body-helper" v-if="prePost || nextPost">
+                <div class="post-body-helper__item pre" v-if="prePost" @click.stop="goOtherPost(prePost)">
+                    <img src="../assets/double-arrow-left.png"/>
+                    <span class="prefix">上一篇：</span>
+                    <span class="title">{{prePost.title}}</span>
+                </div>
+                <div class="post-body-helper__item next" v-if="nextPost" @click.stop="goOtherPost(nextPost)">
+                    <span class="prefix">下一篇：</span>
+                    <span class="title">{{nextPost.title}}</span>
+                    <img src="../assets/double-arrow-right-blue.png"/>
+                </div>
+            </div>
             <div class="post-body-gitalk" id="gitalk-container"></div>
         </div>
 
@@ -20,12 +32,12 @@
                 <div class="post-catalog-wrap__title">目录</div>
                 <div class="post-catalog-wrap__body" v-html="catalogHtml" @click.prevent="anchor($event)"></div>
             </div>
-            <div class="post-catalog-wrap">
+            <div class="post-catalog-wrap" v-if="sameSetPostList && sameSetPostList.length">
                 <div class="post-catalog-wrap__title">同系列相关文章</div>
                 <div class="post-catalog-wrap__body set-post-list">
                     <ul>
                         <li v-for="(item, itemIdx) in sameSetPostList.filter(x => x.name != post.name)" :key="itemIdx">
-                            <a @click="goOtherPost(item)">{{item.title}}</a>
+                            <a @click.stop="goOtherPost(item)">{{item.title}}</a>
                         </li>
                     </ul>
                 </div>
@@ -35,9 +47,9 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, ref } from '@vue/runtime-core'
+import { defineComponent, onMounted, ref, watch } from '@vue/runtime-core'
 import Gitalk from 'gitalk'
-import { onBeforeRouteUpdate, useRoute, useRouter } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import { GitHubOAuth, toTop } from '@tool/Tool'
 import PostHandler from '@tool/PostHandler'
 import catalogHandler from '@tool/CatalogHandler'
@@ -48,35 +60,26 @@ const md5 = require('js-md5')
 type IPost = typeof PostHandler.Post
 export default defineComponent({
     setup() {
-        const route = useRoute()
-        const router = useRouter()
-        console.error('log', route.query, route.path)
-        const fileName:any = route.query.file
-        const isCatalogFixed = ref<boolean>(false)
-        const _postCompiler = PostHandler.postCompiler(fileName)
-
+        let route = useRoute()
+        let router = useRouter()
+        let fileName:any = route.query.file
+        let isCatalogFixed = ref<boolean>(false)
+        let _postCompiler = PostHandler.postCompiler(fileName)
+        
         const onScroll = () => {
             const pageY:number = window.pageYOffset
             const targetY:number = catalogHandler.getCatalogOffset().top
             isCatalogFixed.value = pageY > targetY
         }
+        
+        toTop()
+        window.addEventListener('scroll', onScroll, false)
 
-        const tapTag = (tag:string) => {
-            if (!tag) return 
-            toTop()
-            router.push(`/tag?tag=${tag}`)
-        }
-
-        const goOtherPost = (item:IPost) => {
-            console.error('goOtherPost', item)
-            if (!item.name) return
-            toTop()
-            // router.push(`/post?file=${item.name}`)
-        }
-
-        // onBeforeRouteUpdate(() => {
-        //   location.reload()
-        // })
+        watch(() => route.query.file, () => {
+            if (route.query.file != fileName && route.path.includes('post')) {
+                location.reload()
+            }
+        })
 
         // 初始化gitalk
         onMounted(() => {
@@ -91,7 +94,24 @@ export default defineComponent({
             })
             gitalk.render('gitalk-container')
         })
-        window.addEventListener('scroll', onScroll, false)
+
+        const tapTag = (tag:string) => {
+            if (!tag) return 
+            toTop()
+            setTimeout(() => {
+                router.push(`/tag?tag=${tag}`)
+            })
+        }
+
+        const goOtherPost = (item:IPost) => {
+            if (!item.name) return
+            router.push({
+                path: `/post`,
+                query: {
+                    file: item.name
+                }
+            })
+        }
 
         return {
             isCatalogFixed,
@@ -111,22 +131,59 @@ export default defineComponent({
         flex: 1;
         width: 0;
         padding-top: 2rem;
-        .title {
-            padding: 0;
-            margin: 0;
-            font-size: $font-size-header-list;
-        }
-        .footer {
-            @include flex-center(vert);
-            margin: .8rem 0 1.5rem;
-            &-tags {
-                flex: 1;
-                width: 0;
+        &-header {
+            .title {
+                padding: 0;
+                margin: 0;
+                font-size: $font-size-header-list;
             }
-            span {
-                color: $font-mid-grey;
-                margin: 0 0 0 .6rem;
-                flex-shrink: 0;
+            .footer {
+                @include flex-center(vert);
+                margin: .8rem 0 1.5rem;
+                &-tags {
+                    flex: 1;
+                    width: 0;
+                }
+                span {
+                    color: $font-mid-grey;
+                    margin: 0 0 0 .6rem;
+                    flex-shrink: 0;
+                }
+            }
+        }
+        &-helper {
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid $line-grey;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            &__item {
+                display: flex;
+                align-items: center;
+                justify-content: flex-start;
+                &:not(:first-of-type) {
+                    margin-left: 1rem;
+                }
+                span {
+                    color: $link-blue;
+                }
+                .prefix {
+                    color: $font-mid-grey;
+                    flex-shrink: 0;
+                }
+                .title {
+                    @include singleLine;
+                }
+                img {
+                    width: 1.5rem;
+                    height: 1.5rem;
+                    flex-shrink: 0;
+                }
+                &.next {
+                    justify-content: flex-end;
+                    flex: 1;
+                }
             }
         }
     }
