@@ -1,7 +1,7 @@
 <!-- ---
 title: 《Clustering by fast search and find of density peaks》阅读
 date: 2016-11-20 
-tags: 算法, 文本分类
+tags: 文本分类
 --- -->
 
 
