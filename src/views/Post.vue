@@ -162,6 +162,7 @@ export default defineComponent({
                 display: flex;
                 align-items: center;
                 justify-content: flex-start;
+                cursor: pointer;
                 &:not(:first-of-type) {
                     margin-left: 1rem;
                 }
