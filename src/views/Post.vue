@@ -236,6 +236,9 @@ export default defineComponent({
                 }
                 li {
                     padding: .15rem 0;
+                    a {
+                      cursor: pointer;
+                    }
                 }
             }
         }      
