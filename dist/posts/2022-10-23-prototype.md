@@ -5,6 +5,8 @@ tags: JavaScript
 set: BaseJS
 --- -->
 
+### 原型与原型链
+
 我们先来看一个例子
 ```javascript
 function Person() {}

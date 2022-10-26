@@ -32,8 +32,8 @@ apple.say.apply(banana) // color is: yellow
 
 apply的语法是`func.apply(thisArg, [argsArray])`，对参数的讲解是：
 
-* **`thisArg`**：必选的。在`func`函数运行时指定使用的`this`值。如果没传，或者是指定为`null`或`undefined`时会自动替换为指向全局对象。
-* **`argsArray`**：可选的。一个数组或者类数组对象，其中的数组元素将作为单独的参数传给`func`函数。如果这个参数没传，或者是指定为`null`或`undefined`时就不会传递参数给`func`
+* **thisArg**：必选的。在`func`函数运行时指定使用的`this`值。如果没传，或者是指定为`null`或`undefined`时会自动替换为指向全局对象。
+* **argsArray**：可选的。一个数组或者类数组对象，其中的数组元素将作为单独的参数传给`func`函数。如果这个参数没传，或者是指定为`null`或`undefined`时就不会传递参数给`func`
 
 那手写`apply`的时候，应该如何改变`func`执行的上下文呢，我们可以将`func`赋值给一个对象的属性，这样`func`的上下文就是所属的对象了。
 
@@ -57,8 +57,8 @@ Function.prototype._apply = function(context, args) {
 
 call的语法是`function.call(thisArgs, arg1, arg2, ...)`， 对参数的解读是：
 
-* **`thisArg`**：必选的。在`func`函数运行时指定使用的`this`值。如果没传，或者是指定为`null`或`undefined`时会自动替换为指向全局对象。
-* **`arg1, arg2, ...`**：可选的，指定的参数列表
+* **thisArg**：必选的。在`func`函数运行时指定使用的`this`值。如果没传，或者是指定为`null`或`undefined`时会自动替换为指向全局对象。
+* **arg1, arg2, ...**：可选的，指定的参数列表
 
 ```javascript
 Function.prototype._call = function(context) {

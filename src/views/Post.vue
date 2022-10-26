@@ -32,7 +32,7 @@
                 <div class="post-catalog-wrap__title">目录</div>
                 <div class="post-catalog-wrap__body" v-html="catalogHtml" @click.prevent="anchor($event)"></div>
             </div>
-            <div class="post-catalog-wrap" v-if="sameSetPostList && sameSetPostList.length">
+            <div class="post-catalog-wrap" v-if="sameSetPostList && sameSetPostList.length > 1">
                 <div class="post-catalog-wrap__title">同系列相关文章</div>
                 <div class="post-catalog-wrap__body set-post-list">
                     <ul>
