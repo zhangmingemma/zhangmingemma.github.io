@@ -1,7 +1,7 @@
 <!-- ---
 title: JS深入系列之手写Call Apply和Bind
 date: 2022-10-21
-tags: JavaScript
+tags: JS深入系列
 set: DeepJS
 --- -->
 

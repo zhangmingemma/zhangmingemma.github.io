@@ -1,7 +1,7 @@
 <!-- ---
 title: ES6系列之数据类型
 date: 2022-10-19
-tags: ES6系列, JavaScript
+tags: ES6系列, JS基础系列
 set: ES6
 --- -->
 
