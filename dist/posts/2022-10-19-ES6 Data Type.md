@@ -1,7 +1,7 @@
 <!-- ---
 title: ES6系列之数据类型
 date: 2022-10-19
-tags: ES6系列, JS基础系列
+tags: ES6系列
 set: ES6
 --- -->
 
@@ -32,8 +32,15 @@ ES6提供了新的数据结构`Set`，`Set`成员的值都是唯一的，没有�
 **Set与Array的区别**
 * **成员值**：Array成员的值可重复，Set成员的值没有重复的
 * **创建方法**：都可以通过`new`来创建
-* **操作方法**：Array的操作方法是`length`/`push`/`splice`/`shift`/`unshift`/`pop`，Set的操作方法是`size`/`add`/`delete`/`has`/`clear`
-* **遍历**：Set可以通过`keys()`、`values`、`entries`、`forEach`进行遍历
+* **操作方法**：Array的操作方法是`length` / `push` / `splice` / `shift` / `unshift` / `pop`，Set的操作方法是`size` / `add` / `delete` / `has` / `clear`
+* **遍历**：Set可以通过`keys()` / `values()` / `entries` / `forEach`进行遍历，其中`keys()` 、 `values()`、 `entries()`结果都不能通过`map`、 `forEach`、 `for`去遍历，也不能通过`[]`索引来获取 
+
+```javascript
+(new Set([1,2,5])).keys() // SetIterator {1, 2, 5}
+(new Set([1,2,5])).values() // SetIterator {1, 2, 5}
+(new Set([1,2,5])).entries() // SetIterator {1 => 1, 2 => 2, 5 => 5}
+(new Set([1,2,5])).keys().map... // keys().map is not a function
+```
 
 **WeakSet**
 WeakSet的成员只能是对象，不能是其他类型的值。并且WeakSet内的对象都是弱引用，也就是说其他对象不再引用该对象，垃圾回收机制会自动回收该对象占用的内存，不考虑这个对象还存在于WeakSet中。因此WeakSet中的值是否还在取决于垃圾回收机制何时运行，ES6规定WeakSet不允许遍历
