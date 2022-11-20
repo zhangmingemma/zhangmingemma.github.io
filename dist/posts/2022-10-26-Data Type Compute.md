@@ -5,7 +5,7 @@ tags: JS基础系列
 set: BaseJS
 --- -->
 
-JS中数据类型有很多种类型，我们这篇主要讲解的是数据类型的区分、存储以及判断
+JS中数据类型有很多种类型，我们这篇主要讲解的是数据类型的区分、存储以及判断。在JS中我们常见的数据类型包含有`String`、`Number`、`Boolean`、`null`、`undefined`、`Symbol`、`Object`、`Function`、`Array`、`Error`、`RegExp`、`Math`、`JSON`、`global`、`Set`、`Map`、`WeakSet`、`WeakMap`
 
 ### 一. 数据类型区分
 
