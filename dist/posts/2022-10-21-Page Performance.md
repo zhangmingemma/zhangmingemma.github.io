@@ -511,3 +511,9 @@ for(let i=0; i<5; i++) {
 app.appendChild(fragment)
 ```
 
+### 参考文献
+
+* <a href="https://juejin.cn/post/6844903982742110216" target="_blank">高性能渲染十万条数据(虚拟列表)</a>
+* <a href="https://github.com/dwqs/blog/issues/70" target="_blank">浅说虚拟列表的实现原理</a>
+* <a href="https://zhuanlan.zhihu.com/p/34585166" target="_blank">再谈前端虚拟列表的实现</a>
+
