@@ -1,7 +1,7 @@
 <template>
     <div class="home">
-        <template v-for="(post, index) in postList">
-            <Block  :key="index" :post="post"/>
+        <template v-for="(post, index) in postList" :key="index">
+            <Block :post="post"/>
         </template>
         <Pagination :total="total" :onPageChange="onPageChange"/>
     </div>
